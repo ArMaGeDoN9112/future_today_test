@@ -308,14 +308,36 @@ async function publishedView(form) {
   stats.append(funnel, el('p', 'Каждый этап учитывает попытку один раз. Этапы пересекаются: после ошибки студент может успешно отправить отклик. Принятие подтверждается сервером; сбой запроса также может означать потерю подтверждения уже принятого отклика. Отклики без попытки не входят в эту воронку.'));
   stats.append(el('h3', 'Затруднения по полям'));
   stats.append(el('p', `Всего посещений: ${analytics.views}, начатых заполнений: ${analytics.starts}. Для каждого типа затруднения попытка учитывается один раз, включая попытки без изменений и с принятым откликом.`));
+  const issues = el('div');
+  issues.className = 'field-issues';
   for (const field of analytics.fieldIssues) {
     const item = el('article');
+    item.className = 'field-issue-card';
     item.append(el('h4', field.label));
+    const breakdown = el('dl');
     for (const [key, caption] of Object.entries({ invalidFormat: 'Неверный формат или не выбран вариант', requiredMissing: 'Обязательное поле не заполнено', searchEmpty: 'Поиск не дал результатов', catalogError: 'Ошибка загрузки справочника' })) {
-      item.append(el('p', `${caption}: ${field[key]} из ${analytics.views} попыток`));
+      const count = field[key];
+      const percent = analytics.views ? Math.round(count / analytics.views * 100) : 0;
+      const row = el('div');
+      row.className = `issue-row${count ? ' has-issues' : ''}`;
+      const value = el('dd');
+      const fraction = el('span');
+      fraction.append(el('strong', String(count)), el('span', ` из ${analytics.views}`));
+      value.append(fraction, el('span', `${percent}%`));
+      const bar = el('span');
+      bar.className = 'issue-bar';
+      bar.setAttribute('aria-hidden', 'true');
+      const fill = el('span');
+      fill.style.width = `${percent}%`;
+      bar.append(fill);
+      value.append(bar);
+      row.append(el('dt', caption), value);
+      breakdown.append(row);
     }
-    stats.append(item);
+    item.append(breakdown);
+    issues.append(item);
   }
+  stats.append(issues);
   stats.append(el('h3', 'Последние активные поля'));
   stats.append(el('p', 'Последнее активное поле показывает место остановки, а не установленную причину ухода.'));
   if (!analytics.lastActiveFields.length) stats.append(el('p', 'Незавершённых заполнений нет.'));

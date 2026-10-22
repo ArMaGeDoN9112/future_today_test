@@ -73,7 +73,10 @@ test('публикация фиксирует содержание, управл
   assert.ok((await page.locator('body').innerText()).includes(`Попытка ${abandoned.id}`));
   await page.getByRole('heading', { name: 'Воронка отправки', exact: true }).waitFor();
   await page.getByRole('heading', { name: 'Затруднения по полям', exact: true }).waitFor();
-  assert.ok((await page.getByRole('heading', { name: 'Вуз', exact: true }).locator('..').innerText()).includes('Поиск не дал результатов: 1 из 4 попыток'));
+  const universityIssues = page.getByRole('heading', { name: 'Вуз', exact: true }).locator('..');
+  const emptySearch = universityIssues.getByRole('term').filter({ hasText: 'Поиск не дал результатов' }).locator('..');
+  assert.equal(await emptySearch.getByRole('definition').innerText(), '1 из 4\n25%');
+  assert.equal(await emptySearch.locator('.issue-bar > span').evaluate(node => node.style.width), '25%');
   assert.equal(await page.locator('img').count(), 0);
   assert.equal(await page.evaluate(() => window.executed), undefined);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);

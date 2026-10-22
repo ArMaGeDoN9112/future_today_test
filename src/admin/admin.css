@@ -32,6 +32,20 @@ legend { font-weight: 700; padding: 0 8px; }
 .metric { background: var(--background); border-radius: 8px; padding: 16px; }
 .metric dt { color: var(--muted); }
 .metric dd { font-size: 1.875rem; font-weight: 700; margin: 6px 0 0; }
+.field-issues { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.field-issue-card { min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+.field-issue-card h4 { margin: 0 0 8px; font-size: 1.125rem; overflow-wrap: anywhere; }
+.field-issue-card dl { margin: 0; }
+.issue-row { padding: 12px 0; color: var(--muted); }
+.issue-row + .issue-row { border-top: 1px solid #e8eef5; }
+.issue-row dt { font-size: .875rem; font-weight: 500; }
+.issue-row dd { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; margin: 4px 0 0; font-variant-numeric: tabular-nums; }
+.issue-row strong { font-size: 1.25rem; font-weight: 650; }
+.issue-row dd > span:nth-child(2) { font-size: .875rem; }
+.issue-row.has-issues { color: var(--ink); }
+.issue-row.has-issues strong, .issue-row.has-issues dd > span:nth-child(2) { color: var(--error); font-weight: 750; }
+.issue-bar { display: block; flex-basis: 100%; height: 5px; border-radius: 4px; background: #edf1f6; overflow: hidden; }
+.issue-bar > span { display: block; height: 100%; border-radius: inherit; background: var(--error); }
 .response-card { background: var(--background); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-top: 20px; }
 .response-card h3 { margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .response-card dl { margin: 0; }
