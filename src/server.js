@@ -6,7 +6,7 @@ import { database, readForm, readResponse } from './storage.js';
 
 /** @typedef {{id: string, type: string, label: string, required: boolean, options?: string[]}} Field */
 /** @typedef {{id: string, title: string, fields: Field[], status: 'draft' | 'published' | 'closed', publicUrl: string | null}} Form */
-/** @typedef {{id: string, formId: string, attemptId?: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
+/** @typedef {{id: string, formId: string, attemptId?: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | string[] | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
 /** @typedef {{id: string, formId: string, createdAt: string, startedAt: string | null, lastActiveAt: string, lastFieldId: string | null}} Attempt */
 /** @type {Record<string, import('./catalogs.js').CatalogKind>} */
 const fieldCatalogs = { city: 'cities', university: 'universities', study_direction: 'study-directions', study_level_course: 'study-courses' };
@@ -50,14 +50,15 @@ function content(input, partial) {
         throw new HttpError(400, 'У поля нужны уникальный непустой id, подпись label и required (boolean).');
       }
       ids.add(field.id);
-      if (!['short_text', 'long_text', 'email', 'single_choice', 'city', 'university', 'study_direction', 'study_level_course'].includes(/** @type {string} */ (field.type))) {
+      if (!['short_text', 'long_text', 'email', 'single_choice', 'multiple_choice', 'city', 'university', 'study_direction', 'study_level_course'].includes(/** @type {string} */ (field.type))) {
         throw new HttpError(400, 'Неизвестный тип поля.');
       }
-      const allowed = ['id', 'type', 'label', 'required', ...(field.type === 'single_choice' ? ['options'] : [])];
+      const choice = field.type === 'single_choice' || field.type === 'multiple_choice';
+      const allowed = ['id', 'type', 'label', 'required', ...(choice ? ['options'] : [])];
       if (Object.keys(field).some(key => !allowed.includes(key))) throw new HttpError(400, 'Неизвестные свойства поля.');
-      if (field.type === 'single_choice' && (!Array.isArray(field.options) || !field.options.length ||
+      if (choice && (!Array.isArray(field.options) || !field.options.length ||
           field.options.some(option => !nonempty(option)) || new Set(field.options.map(option => option.trim())).size !== field.options.length)) {
-        throw new HttpError(400, 'Для single_choice нужны непустые уникальные строки options.');
+        throw new HttpError(400, `Для ${field.type} нужны непустые уникальные строки options.`);
       }
     }
   }
@@ -90,6 +91,14 @@ function validateAnswers(form, input) {
       continue;
     }
     const value = answers[field.id];
+    if (field.type === 'multiple_choice') {
+      if (!Array.isArray(value) || !value.length || new Set(value).size !== value.length ||
+          value.some(option => typeof option !== 'string' || !field.options?.includes(option))) {
+        throw new HttpError(400, `Выберите допустимые варианты без повторов для поля «${field.label}».`);
+      }
+      result[field.id] = value;
+      continue;
+    }
     if (typeof value !== 'string' || !value.trim()) {
       throw new HttpError(400, `Поле «${field.label}» должно содержать непустую строку.`);
     }
@@ -109,8 +118,8 @@ function validateAnswers(form, input) {
   }
   const directions = form.fields.filter(field => field.type === 'study_direction').map(field => result[field.id]);
   const courses = form.fields.filter(field => field.type === 'study_level_course').map(field => result[field.id]);
-  if (directions.some(direction => typeof direction === 'object' && courses.some(course =>
-    typeof course === 'object' && direction.level !== course.level))) {
+  if (directions.some(direction => typeof direction === 'object' && !Array.isArray(direction) && courses.some(course =>
+    typeof course === 'object' && !Array.isArray(course) && direction.level !== course.level))) {
     throw new HttpError(400, 'Уровни направления и курса обучения должны совпадать.');
   }
   return result;

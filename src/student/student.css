@@ -1,5 +1,7 @@
 main { max-width: 760px; }
 .field { margin: 24px 0; }
+.checkbox-option { display: flex; align-items: center; gap: 12px; min-height: 44px; font-weight: 400; }
+.checkbox-option input { flex-shrink: 0; }
 .field-error { color: var(--error); margin: 6px 0; }
 [aria-invalid="true"] { border-color: var(--error); }
 label, option { overflow-wrap: anywhere; }

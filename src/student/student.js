@@ -80,46 +80,61 @@ function render(form, courses) {
   panel.autocomplete = 'off';
   panel.className = 'card';
   panel.append(el('p', 'Заполните форму, чтобы отправить отклик. Регистрация не нужна.'));
-  /** @type {{field: import('../server.js').Field, control: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, feedback: HTMLParagraphElement, search?: HTMLInputElement, selected?: Entry}[]} */
+  /** @type {{field: import('../server.js').Field, control: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | HTMLFieldSetElement, feedback: HTMLParagraphElement, search?: HTMLInputElement, selected?: Entry}[]} */
   const controls = [];
   function updateCourses() {
     const selectedLevels = controls.filter(item => item.field.type === 'study_direction' && item.selected).map(item => item.selected?.level);
     for (const item of controls.filter(item => item.field.type === 'study_level_course')) {
-      const value = item.control.value;
-      item.control.replaceChildren(new Option('Выберите вариант', ''), ...courses
+      const control = /** @type {HTMLSelectElement} */ (item.control);
+      const value = control.value;
+      control.replaceChildren(new Option('Выберите вариант', ''), ...courses
         .filter(course => selectedLevels.every(level => level === course.level))
         .map(course => new Option(course.name, course.id)));
-      item.control.value = [.../** @type {HTMLSelectElement} */ (item.control).options].some(option => option.value === value) ? value : '';
+      control.value = [...control.options].some(option => option.value === value) ? value : '';
     }
   }
   for (const field of form.fields) {
     const group = el('div');
     group.className = 'field';
-    const caption = el('label', `${field.label} · ${field.required ? 'Обязательное' : 'Необязательное'}`);
+    const multiple = field.type === 'multiple_choice';
+    const caption = el(multiple ? 'legend' : 'label', `${field.label} · ${field.required ? 'Обязательное' : 'Необязательное'}`);
     const catalog = catalogs[field.type];
-    const control = field.type === 'long_text' ? el('textarea') : field.type === 'single_choice' || field.type === 'study_level_course' || catalog ? el('select') : el('input');
+    const control = multiple ? el('fieldset') : field.type === 'long_text' ? el('textarea') : field.type === 'single_choice' || field.type === 'study_level_course' || catalog ? el('select') : el('input');
     if (control instanceof HTMLInputElement) control.type = field.type === 'email' ? 'email' : 'text';
     if (control instanceof HTMLSelectElement) {
       control.append(new Option('Выберите вариант', ''));
       for (const option of field.options ?? []) control.append(new Option(option, option));
     }
     control.id = crypto.randomUUID();
-    control.required = field.required;
-    caption.htmlFor = control.id;
+    if (!(control instanceof HTMLFieldSetElement)) control.required = field.required;
+    if (caption instanceof HTMLLabelElement) caption.htmlFor = control.id;
     const feedback = el('p');
     feedback.id = `${control.id}-error`;
     feedback.className = 'field-error';
     control.setAttribute('aria-describedby', feedback.id);
     /** @type {typeof controls[number]} */
     const item = { field, control, feedback };
-    group.append(caption, control, feedback);
+    if (control instanceof HTMLFieldSetElement) {
+      control.append(caption);
+      for (const option of field.options ?? []) {
+        const checkbox = el('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = option;
+        checkbox.setAttribute('aria-describedby', feedback.id);
+        const optionLabel = el('label');
+        optionLabel.className = 'checkbox-option';
+        optionLabel.append(checkbox, el('span', option));
+        control.append(optionLabel);
+      }
+      group.append(control, feedback);
+    } else group.append(caption, control, feedback);
     if (catalog) {
       const search = el('input');
       search.type = 'search';
       search.id = `${control.id}-search`;
       search.autocomplete = 'off';
       search.setAttribute('aria-describedby', feedback.id);
-      caption.htmlFor = search.id;
+      if (caption instanceof HTMLLabelElement) caption.htmlFor = search.id;
       item.search = search;
       const choices = /** @type {HTMLSelectElement} */ (control);
       choices.size = 4;
@@ -187,11 +202,11 @@ function render(form, courses) {
   }
   updateCourses();
   panel.addEventListener('input', event => {
-    const item = controls.find(item => item.control === event.target || item.search === event.target);
+    const item = controls.find(item => event.target instanceof Node && item.control.contains(event.target) || item.search === event.target);
     if (item) track('change', item.field.id);
   });
   panel.addEventListener('focusin', event => {
-    const item = controls.find(item => item.control === event.target || item.search === event.target);
+    const item = controls.find(item => event.target instanceof Node && item.control.contains(event.target) || item.search === event.target);
     if (item) track('focus', item.field.id);
   });
   const send = el('button', 'Отправить отклик');
@@ -203,10 +218,18 @@ function render(form, courses) {
     event.preventDefault();
     if (send.disabled) return;
     error.hidden = true;
-    /** @type {Record<string, string>} */
+    /** @type {Record<string, string | string[]>} */
     const answers = Object.create(null);
     let invalid = false;
     for (const { field, control, feedback, search } of controls) {
+      if (control instanceof HTMLFieldSetElement) {
+        const selected = [...control.querySelectorAll('input:checked')].map(input => /** @type {HTMLInputElement} */ (input).value);
+        feedback.textContent = field.required && !selected.length ? 'Выберите хотя бы один вариант.' : '';
+        control.setAttribute('aria-invalid', String(Boolean(feedback.textContent)));
+        if (feedback.textContent && !invalid) { control.querySelector('input')?.focus(); invalid = true; }
+        if (selected.length) answers[field.id] = selected;
+        continue;
+      }
       const value = control.value;
       feedback.textContent = search && !value && (field.required || search.value.trim()) ? 'Выберите значение из справочника.' :
         field.required && !value.trim() ? 'Заполните обязательное поле.' :

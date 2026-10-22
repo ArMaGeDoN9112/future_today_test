@@ -8,6 +8,7 @@ const error = /** @type {HTMLParagraphElement} */ (document.querySelector('#erro
 const statuses = { draft: 'Черновик', published: 'Опубликована', closed: 'Приём завершён' };
 const types = {
   short_text: 'Короткий текст', long_text: 'Длинный текст', email: 'Email', single_choice: 'Один вариант',
+  multiple_choice: 'Несколько вариантов',
   city: 'Город проживания', university: 'Вуз', study_direction: 'Направление обучения', study_level_course: 'Уровень и курс обучения',
 };
 const levels = { bachelor: 'Бакалавриат', master: 'Магистратура', specialist: 'Специалитет' };
@@ -161,7 +162,7 @@ function editor(form) {
     function addOption(value) {
       const input = el('input');
       input.value = value;
-      input.required = type.value === 'single_choice';
+      input.required = ['single_choice', 'multiple_choice'].includes(type.value);
       const row = el('div');
       row.className = 'choice-option';
       row.append(label('', input), button('×', () => {
@@ -177,8 +178,8 @@ function editor(form) {
     }
     for (const value of field.options?.length ? field.options : ['']) addOption(value);
     function updateOptions() {
-      optionsGroup.hidden = type.value !== 'single_choice';
-      for (const input of options.querySelectorAll('input')) input.required = type.value === 'single_choice';
+      optionsGroup.hidden = !['single_choice', 'multiple_choice'].includes(type.value);
+      for (const input of options.querySelectorAll('input')) input.required = !optionsGroup.hidden;
     }
     type.onchange = updateOptions;
     updateOptions();
@@ -212,7 +213,7 @@ function editor(form) {
         const type = /** @type {HTMLSelectElement} */ (group.querySelector('select')).value;
         return {
           id: /** @type {HTMLElement} */ (group).dataset.id, label: inputs[0].value, type, required: inputs[1].checked,
-          ...(type === 'single_choice' ? { options: [...group.querySelectorAll('.choice-options input')].map(input => /** @type {HTMLInputElement} */ (input).value.trim()) } : {}),
+          ...(['single_choice', 'multiple_choice'].includes(type) ? { options: [...group.querySelectorAll('.choice-options input')].map(input => /** @type {HTMLInputElement} */ (input).value.trim()) } : {}),
         };
       }),
     };
@@ -238,10 +239,11 @@ function editor(form) {
   }
 }
 
-/** @param {string | Readonly<import('../catalogs.js').CatalogEntry> | undefined} value */
+/** @param {FormResponse['answers'][string] | undefined} value */
 function answer(value) {
   if (value === undefined) return 'Не заполнено';
   if (typeof value === 'string') return value;
+  if (Array.isArray(value)) return value.join('\n');
   return [value.code, value.name, value.region, value.level && levels[value.level], value.course && `${value.course} курс`].filter(Boolean).join(' · ');
 }
 
