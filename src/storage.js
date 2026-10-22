@@ -36,6 +36,12 @@ database.transaction(() => database.exec(`
   );
   CREATE INDEX IF NOT EXISTS attempts_form ON attempts(formId);
   CREATE INDEX IF NOT EXISTS responses_form ON responses(formId);
+  CREATE TABLE IF NOT EXISTS attempt_signals (
+    attemptId TEXT NOT NULL REFERENCES attempts(id),
+    type TEXT NOT NULL,
+    fieldId TEXT NOT NULL DEFAULT '',
+    PRIMARY KEY (attemptId, type, fieldId)
+  );
 `)).immediate();
 
 /** @param {unknown} row @returns {import('./server.js').Form} */

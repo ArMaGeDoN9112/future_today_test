@@ -8,19 +8,44 @@ const path = location.pathname;
 const catalogs = { city: 'cities', university: 'universities', study_direction: 'study-directions' };
 const levels = { bachelor: 'Бакалавриат', master: 'Магистратура', specialist: 'Специалитет' };
 const navigation = /** @type {PerformanceNavigationTiming | undefined} */ (performance.getEntriesByType('navigation')[0]);
-/** @type {{id?: string, completed?: boolean, started?: boolean}} */
+/** @typedef {{type: import('../server.js').EventType, fieldId?: string}} Signal */
+/** @typedef {{id?: string, completed?: boolean, started?: boolean, pending?: Signal[]}} Visit */
+/** @type {Visit} */
 let attempt = ['reload', 'back_forward'].includes(navigation?.type ?? '') ? history.state?.attempt ?? {} : {};
+/** @type {Visit[]} */
+let backlog = ['reload', 'back_forward'].includes(navigation?.type ?? '') ? history.state?.backlog ?? [] : [];
 let events = Promise.resolve();
+let flushing = false;
 let lastActivity = 0;
 
-/** @param {'change' | 'focus' | 'activity'} type @param {string} [fieldId] */
+/** @param {import('../server.js').EventType} type @param {string} [fieldId] */
 function track(type, fieldId) {
-  if (!attempt.id || attempt.completed || (type !== 'change' && !attempt.started)) return;
+  if (!attempt.id || attempt.completed || (['focus', 'activity'].includes(type) && !attempt.started)) return;
   if (type === 'change') { attempt.started = true; remember(); }
   lastActivity = Date.now();
-  const url = `${path}/attempts/${encodeURIComponent(attempt.id)}/events`;
-  events = events.then(async () => { await api(url, { type, ...(fieldId === undefined ? {} : { fieldId }) }); }).catch(showError);
+  const signal = { type, ...(fieldId === undefined ? {} : { fieldId }) };
+  attempt.pending ??= [];
+  if (['change', 'focus', 'activity'].includes(type) || !attempt.pending.some(item => item.type === type && item.fieldId === fieldId)) attempt.pending.push(signal);
+  remember();
+  flushEvents();
 }
+
+function flushEvents() {
+  if (flushing) return;
+  flushing = true;
+  events = (async () => {
+    while (true) {
+      const visit = backlog.find(visit => visit.pending?.length) ?? attempt;
+      if (!visit.id || !visit.pending?.length) break;
+      await api(`${path}/attempts/${encodeURIComponent(visit.id)}/events`, visit.pending[0]);
+      visit.pending.shift();
+      backlog = backlog.filter(visit => visit.pending?.length);
+      remember();
+    }
+  })().catch(() => { /* События повторятся при следующем действии или восстановлении связи. */ })
+    .finally(() => { flushing = false; });
+}
+window.addEventListener('online', flushEvents);
 
 for (const event of ['pointerdown', 'keydown']) {
   document.addEventListener(event, () => {
@@ -41,13 +66,14 @@ async function api(url, body) {
     method: body === undefined ? 'GET' : 'POST',
     headers: { Accept: 'application/json', ...(body === undefined ? {} : { 'Content-Type': 'application/json' }) },
     body: body === undefined ? undefined : JSON.stringify(body),
+    signal: url.endsWith('/events') ? AbortSignal.timeout(3000) : undefined,
   }).catch(() => { throw new Error('Не удалось связаться с сервером. Проверьте соединение и повторите действие.'); });
   const data = await response.json();
-  if (!response.ok) throw new Error(response.status === 409 ? 'Приём завершён. Отправка отклика недоступна.' : data.error);
+  if (!response.ok) throw Object.assign(new Error(response.status === 409 ? 'Приём завершён. Отправка отклика недоступна.' : data.error), { status: response.status });
   return data;
 }
 
-function remember() { history.replaceState({ attempt }, ''); }
+function remember() { history.replaceState({ attempt, backlog }, ''); }
 /** @param {unknown} cause */
 function showError(cause) {
   error.textContent = cause instanceof Error ? cause.message : 'Не удалось выполнить действие. Повторите попытку.';
@@ -58,7 +84,10 @@ function success() {
   error.hidden = true;
   content.replaceChildren(el('h1', 'Отклик отправлен'), el('p', 'Спасибо! Ваш отклик принят.'));
   const again = el('button', 'Заполнить ещё раз');
-  again.onclick = () => { attempt = {}; remember(); void load(); };
+  again.onclick = () => {
+    if (attempt.pending?.length) backlog.push(attempt);
+    attempt = {}; remember(); void load();
+  };
   content.append(again);
   message.textContent = '';
 }
@@ -165,13 +194,17 @@ function render(form, courses) {
             const result = await api(`/api/catalogs/${catalog}?q=${encodeURIComponent(search.value)}`);
             if (current !== revision) return;
             entries = result.items;
+            if (!entries.length) track('search_empty', field.id);
             // shortcut: первые 50 совпадений; если уточнения поиска недостаточно, добавить страницы результатов.
             choices.append(...entries.slice(0, 50).map(entry => new Option(entryLabel(entry), entry.id)));
             choices.hidden = entries.length === 0;
             hint.textContent = !entries.length ? 'Нет нужного варианта? Свяжитесь с организатором' :
               entries.length > 50 ? 'Показаны первые 50 вариантов. Уточните поиск.' : 'Выберите вариант из списка.';
           } catch (cause) {
-            if (current === revision) hint.textContent = 'Не удалось загрузить варианты. Измените запрос, чтобы повторить поиск.';
+            if (current === revision) {
+              track('catalog_error', field.id);
+              hint.textContent = 'Не удалось загрузить варианты. Измените запрос, чтобы повторить поиск.';
+            }
           }
         }, 200);
       };
@@ -217,6 +250,7 @@ function render(form, courses) {
   panel.onsubmit = async event => {
     event.preventDefault();
     if (send.disabled) return;
+    track('submit');
     error.hidden = true;
     /** @type {Record<string, string | string[]>} */
     const answers = Object.create(null);
@@ -226,6 +260,7 @@ function render(form, courses) {
         const selected = [...control.querySelectorAll('input:checked')].map(input => /** @type {HTMLInputElement} */ (input).value);
         feedback.textContent = field.required && !selected.length ? 'Выберите хотя бы один вариант.' : '';
         control.setAttribute('aria-invalid', String(Boolean(feedback.textContent)));
+        if (feedback.textContent) track('required_missing', field.id);
         if (feedback.textContent && !invalid) { control.querySelector('input')?.focus(); invalid = true; }
         if (selected.length) answers[field.id] = selected;
         continue;
@@ -236,10 +271,11 @@ function render(form, courses) {
         value && field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'Введите корректный email.' : '';
       control.setAttribute('aria-invalid', String(Boolean(feedback.textContent)));
       search?.setAttribute('aria-invalid', String(Boolean(feedback.textContent)));
+      if (feedback.textContent) track(field.required && !(search ? search.value : value).trim() ? 'required_missing' : 'invalid_format', field.id);
       if (feedback.textContent && !invalid) { (search ?? control).focus(); invalid = true; }
       if (value.trim()) answers[field.id] = value;
     }
-    if (invalid) return;
+    if (invalid) { track('validation_failed'); return; }
     send.disabled = true;
     message.textContent = 'Отправка отклика…';
     try {
@@ -248,12 +284,16 @@ function render(form, courses) {
       attempt.completed = true;
       remember();
       success();
-    } catch (cause) { showError(cause); message.textContent = ''; }
+    } catch (cause) {
+      track(cause && typeof cause === 'object' && 'status' in cause && cause.status === 400 ? 'validation_failed' : 'request_failed');
+      showError(cause); message.textContent = '';
+    }
     finally { send.disabled = false; }
   };
 }
 
 async function load() {
+  flushEvents();
   error.hidden = true;
   content.replaceChildren();
   message.textContent = 'Загрузка…';
@@ -264,9 +304,14 @@ async function load() {
       attempt.id = visit.id;
       attempt.started = Boolean(visit.startedAt);
       remember();
+      flushEvents();
     }
-    const courses = form.status === 'published' && !attempt.completed && form.fields.some(field => field.type === 'study_level_course') ?
-      (await api('/api/catalogs/study-courses')).items : [];
+    const courseFields = form.fields.filter(field => field.type === 'study_level_course');
+    const courses = form.status === 'published' && !attempt.completed && courseFields.length ?
+      (await api('/api/catalogs/study-courses').catch(cause => {
+        for (const field of courseFields) track('catalog_error', field.id);
+        throw cause;
+      })).items : [];
     render(form, courses);
   } catch (cause) {
     showError(cause);

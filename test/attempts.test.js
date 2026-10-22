@@ -46,6 +46,16 @@ function event(app, form, attempt, body) {
   return app.request(`${form.publicUrl}/attempts/${attempt.id}/events`, 'POST', body);
 }
 
+function signals(accepted = 0, validationFailed = 0) {
+  return {
+    submissionFunnel: { clicked: 0, validationFailed, requestFailed: 0, accepted },
+    fieldIssues: [
+      { fieldId: 'name', label: 'Имя', invalidFormat: 0, requiredMissing: 0, searchEmpty: 0, catalogError: 0 },
+      { fieldId: 'email', label: 'Почта', invalidFormat: 0, requiredMissing: 0, searchEmpty: 0, catalogError: 0 },
+    ],
+  };
+}
+
 test('просмотр и фокус не начинают заполнение; обновление продолжает попытку, другая вкладка создаёт отдельную', async t => {
   const fixture = await setup(t);
   const { app } = fixture;
@@ -59,7 +69,7 @@ test('просмотр и фокус не начинают заполнение;
   const second = await attempt(app, form);
   assert.notEqual(second.id, first.id);
   await fixture.time('2026-10-22T12:00:00Z');
-  const expected = { formId: form.id, views: 2, starts: 0, submissions: 0, inProgress: 0, abandoned: 0, lastActiveFields: [] };
+  const expected = { ...signals(), formId: form.id, views: 2, starts: 0, submissions: 0, inProgress: 0, abandoned: 0, lastActiveFields: [] };
   assert.deepEqual(await analytics(app, form), expected);
   await fixture.restart();
   assert.deepEqual(await analytics(fixture.app, form), expected);
@@ -77,10 +87,10 @@ test('изменение начинает попытку один раз; гра
   assert.equal(started.body.startedAt, '2026-10-22T10:00:00.000Z');
   assert.equal((await event(app, form, first, change)).status, 200);
   await fixture.time('2026-10-22T10:29:59.999Z');
-  assert.deepEqual(await analytics(app, form), { formId: form.id, views: 2, starts: 1, submissions: 0,
+  assert.deepEqual(await analytics(app, form), { ...signals(), formId: form.id, views: 2, starts: 1, submissions: 0,
     inProgress: 1, abandoned: 0, lastActiveFields: [] });
   await fixture.time('2026-10-22T10:30:00Z');
-  assert.deepEqual(await analytics(app, form), { formId: form.id, views: 2, starts: 1, submissions: 0,
+  assert.deepEqual(await analytics(app, form), { ...signals(), formId: form.id, views: 2, starts: 1, submissions: 0,
     inProgress: 0, abandoned: 1, lastActiveFields: [
       { attemptId: first.id, fieldId: 'name', label: 'Имя', lastActiveAt: '2026-10-22T10:00:00.000Z' },
     ] });
@@ -119,13 +129,13 @@ test('ошибка отправки не завершает попытку; по
     assert.equal(retry.status, 200);
     assert.deepEqual(retry.body, sent.body);
   }
-  assert.deepEqual(await analytics(app, form), { formId: form.id, views: 1, starts: 1, submissions: 1,
+  assert.deepEqual(await analytics(app, form), { ...signals(1, 1), formId: form.id, views: 1, starts: 1, submissions: 1,
     inProgress: 0, abandoned: 0, lastActiveFields: [] });
   await fixture.time('2026-10-23T11:00:00Z');
   assert.equal((await event(app, form, first, { type: 'change', fieldId: 'email' })).status, 200);
   await fixture.restart();
   assert.deepEqual((await fixture.app.request(`/api/forms/${form.id}/responses`)).body.responses, [sent.body]);
-  assert.deepEqual(await analytics(fixture.app, form), { formId: form.id, views: 1, starts: 1, submissions: 1,
+  assert.deepEqual(await analytics(fixture.app, form), { ...signals(1, 1), formId: form.id, views: 1, starts: 1, submissions: 1,
     inProgress: 0, abandoned: 0, lastActiveFields: [] });
   assert.deepEqual((await fixture.app.request(`${form.publicUrl}/responses`, 'POST', body)).body, sent.body);
   const second = await attempt(fixture.app, form);
@@ -179,7 +189,7 @@ test('закрытие запрещает новые попытки и отпр�
   await app.request(`${path}/reopen`, 'POST');
   assert.equal((await app.request(`${form.publicUrl}/responses`, 'POST', { attemptId: first.id, answers: { name: 'Анна' } })).status, 201);
   assert.equal((await app.request(`${form.publicUrl}/responses`, 'POST', { answers: { name: 'Без попытки' } })).status, 201);
-  assert.deepEqual(await analytics(app, form), { formId: form.id, views: 1, starts: 1, submissions: 2,
+  assert.deepEqual(await analytics(app, form), { ...signals(1), formId: form.id, views: 1, starts: 1, submissions: 2,
     inProgress: 0, abandoned: 0, lastActiveFields: [] });
   const draft = (await app.request('/api/forms', 'POST', { title: 'Черновик', fields: [] })).body;
   assert.equal((await app.request(`/forms/${draft.id}/attempts`, 'POST', {})).status, 404);
@@ -205,4 +215,45 @@ test('отказ записи не добавляет просмотр, нача
   assert.equal((await event(fixture.app, form, first, { type: 'change', fieldId: 'name' })).status, 200);
   assert.equal((await fixture.app.request(`${form.publicUrl}/responses`, 'POST', { attemptId: first.id, answers: { name: 'Анна' } })).status, 201);
   assert.equal((await analytics(fixture.app, form)).submissions, 1);
+});
+
+test('затруднения и этапы отправки считают попытки без дублей, переживают перезапуск и не смешивают формы', async t => {
+  const fixture = await setup(t);
+  const { app } = fixture;
+  const form = await publish(app);
+  const other = await publish(app);
+  const first = await attempt(app, form);
+  const second = await attempt(app, form);
+  for (const visit of [first, second]) {
+    await event(app, form, visit, { type: 'change', fieldId: 'name' });
+    await event(app, form, visit, { type: 'submit' });
+    await event(app, form, visit, { type: 'required_missing', fieldId: 'name' });
+  }
+  for (let repeat = 0; repeat < 3; repeat++) {
+    for (const type of ['invalid_format', 'search_empty', 'catalog_error']) {
+      assert.equal((await event(app, form, first, { type, fieldId: 'email' })).status, 200);
+    }
+    for (const type of ['submit', 'validation_failed', 'request_failed']) {
+      assert.equal((await event(app, form, first, { type })).status, 200);
+    }
+  }
+  for (const body of [{ type: 'submit', fieldId: 'name' }, { type: 'catalog_error', fieldId: 'unknown' },
+    { type: 'search_empty', fieldId: 'name', query: 'секрет' }, { type: 'accepted' }]) {
+    assert.equal((await event(app, form, first, body)).status, 400);
+  }
+  assert.equal((await app.request(`${form.publicUrl}/responses`, 'POST', { attemptId: first.id, answers: { name: 'Анна' } })).status, 201);
+  // Подтверждение могло потеряться: позднее событие о сбое не отменяет принятый отклик.
+  await event(app, form, first, { type: 'request_failed' });
+  const expected = await analytics(app, form);
+  assert.deepEqual(expected.submissionFunnel, { clicked: 2, validationFailed: 1, requestFailed: 1, accepted: 1 });
+  assert.deepEqual(expected.fieldIssues, [
+    { fieldId: 'name', label: 'Имя', invalidFormat: 0, requiredMissing: 2, searchEmpty: 0, catalogError: 0 },
+    { fieldId: 'email', label: 'Почта', invalidFormat: 1, requiredMissing: 0, searchEmpty: 1, catalogError: 1 },
+  ]);
+  assert.deepEqual((await analytics(app, other)).submissionFunnel, signals().submissionFunnel);
+  const release = blockWrites(t, fixture.cwd);
+  assert.equal((await event(app, form, second, { type: 'request_failed' })).status, 500);
+  release();
+  await fixture.restart();
+  assert.deepEqual(await analytics(fixture.app, form), expected);
 });

@@ -8,6 +8,9 @@ import { database, readForm, readResponse } from './storage.js';
 /** @typedef {{id: string, title: string, fields: Field[], status: 'draft' | 'published' | 'closed', publicUrl: string | null}} Form */
 /** @typedef {{id: string, formId: string, attemptId?: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | string[] | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
 /** @typedef {{id: string, formId: string, createdAt: string, startedAt: string | null, lastActiveAt: string, lastFieldId: string | null}} Attempt */
+/** @typedef {'change' | 'focus' | 'activity' | 'invalid_format' | 'required_missing' | 'search_empty' | 'catalog_error' | 'submit' | 'validation_failed' | 'request_failed'} EventType */
+const fieldIssues = ['invalid_format', 'required_missing', 'search_empty', 'catalog_error'];
+const submissionEvents = ['submit', 'validation_failed', 'request_failed'];
 /** @type {Record<string, import('./catalogs.js').CatalogKind>} */
 const fieldCatalogs = { city: 'cities', university: 'universities', study_direction: 'study-directions', study_level_course: 'study-courses' };
 
@@ -212,10 +215,16 @@ const server = createServer(async (request, response) => {
           const event = object(input);
           if (publicMatch[4]) {
             const attempt = findAttempt(form, publicMatch[3]);
-            if (!['change', 'focus', 'activity'].includes(/** @type {string} */ (event.type)) ||
-                Object.keys(event).some(key => !['type', ...(event.type === 'activity' ? [] : ['fieldId'])].includes(key)) ||
-                (event.type !== 'activity' && !form.fields.some(field => field.id === event.fieldId))) {
+            const type = /** @type {string} */ (event.type);
+            const fieldEvent = ['change', 'focus', ...fieldIssues].includes(type);
+            if (![...fieldIssues, ...submissionEvents, 'change', 'focus', 'activity'].includes(type) ||
+                Object.keys(event).some(key => !['type', ...(fieldEvent ? ['fieldId'] : [])].includes(key)) ||
+                (fieldEvent && !form.fields.some(field => field.id === event.fieldId))) {
               throw new HttpError(400, 'Передайте тип события и id поля этой формы без содержимого ответа.');
+            }
+            if (fieldIssues.includes(type) || submissionEvents.includes(type)) {
+              database.prepare('INSERT OR IGNORE INTO attempt_signals (attemptId, type, fieldId) VALUES (?, ?, ?)')
+                .run(attempt.id, type, fieldEvent ? event.fieldId : '');
             }
             if (database.prepare('SELECT id FROM responses WHERE attemptId = ?').get(attempt.id)) {
               result = attempt;
@@ -223,7 +232,7 @@ const server = createServer(async (request, response) => {
               const now = new Date(Date.now()).toISOString();
               const startedAt = attempt.startedAt ?? (event.type === 'change' ? now : null);
               const updated = { ...attempt, startedAt, lastActiveAt: now,
-                lastFieldId: startedAt && event.type !== 'activity' ? /** @type {string} */ (event.fieldId) : attempt.lastFieldId };
+                lastFieldId: startedAt && fieldEvent ? /** @type {string} */ (event.fieldId) : attempt.lastFieldId };
               database.prepare('UPDATE attempts SET startedAt = ?, lastActiveAt = ?, lastFieldId = ? WHERE id = ?')
                 .run(updated.startedAt, updated.lastActiveAt, updated.lastFieldId, updated.id);
               result = updated;
@@ -247,7 +256,13 @@ const server = createServer(async (request, response) => {
           if (form.status !== 'published') throw new HttpError(409, 'Приём откликов недоступен.');
           const body = object(input);
           const attempt = Object.hasOwn(body, 'attemptId') ? findAttempt(form, body.attemptId) : undefined;
-          const answers = validateAnswers(form, body);
+          let answers;
+          try { answers = validateAnswers(form, body); }
+          catch (cause) {
+            if (!(cause instanceof HttpError) || !attempt) throw cause;
+            database.prepare("INSERT OR IGNORE INTO attempt_signals (attemptId, type) VALUES (?, 'validation_failed')").run(attempt.id);
+            return { status: cause.status, result: { error: cause.message } };
+          }
           const existing = attempt && database.prepare('SELECT * FROM responses WHERE attemptId = ?').get(attempt.id);
           if (existing) {
             result = readResponse(existing);
@@ -267,8 +282,18 @@ const server = createServer(async (request, response) => {
           const completed = new Set(submitted.map(response => response.attemptId));
           const pending = started.filter(attempt => !completed.has(attempt.id));
           const abandoned = pending.filter(attempt => Date.now() - Date.parse(attempt.lastActiveAt) >= 30 * 60 * 1000);
+          const signals = /** @type {{type: string, fieldId: string, count: number}[]} */ (database.prepare(`
+            SELECT s.type, s.fieldId, COUNT(*) AS count FROM attempt_signals s
+            JOIN attempts a ON a.id = s.attemptId WHERE a.formId = ? GROUP BY s.type, s.fieldId
+          `).all(form.id));
+          /** @param {string} type @param {string} [fieldId] */
+          const count = (type, fieldId = '') => signals.find(signal => signal.type === type && signal.fieldId === fieldId)?.count ?? 0;
           result = { formId: form.id, views: visits.length, starts: started.length,
             submissions: submitted.length,
+            submissionFunnel: { clicked: count('submit'), validationFailed: count('validation_failed'), requestFailed: count('request_failed'), accepted: submitted.filter(response => response.attemptId).length },
+            fieldIssues: form.fields.map(field => ({ fieldId: field.id, label: field.label,
+              invalidFormat: count('invalid_format', field.id), requiredMissing: count('required_missing', field.id),
+              searchEmpty: count('search_empty', field.id), catalogError: count('catalog_error', field.id) })),
             inProgress: pending.length - abandoned.length, abandoned: abandoned.length,
             lastActiveFields: abandoned.map(attempt => ({ attemptId: attempt.id, fieldId: attempt.lastFieldId,
               label: form.fields.find(field => field.id === attempt.lastFieldId)?.label, lastActiveAt: attempt.lastActiveAt })) };

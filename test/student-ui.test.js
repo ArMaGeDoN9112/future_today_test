@@ -41,6 +41,10 @@ test('студент исправляет ошибки, отправляет о�
   let replies = (await app.request(`/api/forms/${form.id}/responses`)).body;
   assert.equal(replies.count, 1);
   assert.deepEqual(replies.responses[0].answers, { name: 'Анна', email: 'anna@example.com', about: 'Хочу учиться\nИ работать', format: 'Удалённо' });
+  const stats = (await app.request(`/api/forms/${form.id}/analytics`)).body;
+  assert.deepEqual(stats.submissionFunnel, { clicked: 1, validationFailed: 1, requestFailed: 0, accepted: 1 });
+  assert.equal(stats.fieldIssues.find(field => field.fieldId === 'name').requiredMissing, 1);
+  assert.equal(stats.fieldIssues.find(field => field.fieldId === 'email').invalidFormat, 1);
   await page.reload();
   await page.getByRole('heading', { name: 'Отклик отправлен', exact: true }).waitFor();
   await page.getByRole('button', { name: 'Заполнить ещё раз', exact: true }).click();
@@ -237,6 +241,8 @@ test('ошибка отправки сохраняет ответы, повто�
   await page.getByRole('button', { name: 'Отправить отклик', exact: true }).click();
   await page.getByRole('heading', { name: 'Отклик отправлен', exact: true }).waitFor();
   assert.equal((await app.request(`/api/forms/${form.id}/responses`)).body.count, 1);
+  assert.deepEqual((await app.request(`/api/forms/${form.id}/analytics`)).body.submissionFunnel,
+    { clicked: 1, validationFailed: 0, requestFailed: 1, accepted: 1 });
   await page.getByRole('button', { name: 'Заполнить ещё раз', exact: true }).click();
   await page.getByLabel('Имя ·', { exact: false }).fill('Борис');
   await app.request(`/api/forms/${form.id}/close`, 'POST');
@@ -276,4 +282,93 @@ test('пользовательский текст безопасен на узк
   assert.equal(response.answers.__proto__, unsafe);
   assert.equal(response.answers.university.id, university.id);
   assert.equal(response.answers.course.id, 'specialist-5plus');
+});
+
+test('пустой поиск и сбой справочника сохраняются при недоступности событий и доставляются после обновления', { timeout: 30000 }, async t => {
+  const { app, form, page } = await setup(t, [
+    { id: 'name', type: 'short_text', label: 'Имя', required: true },
+    { id: 'university', type: 'university', label: 'Вуз', required: false },
+  ]);
+  await page.route('**/events', route => route.abort());
+  await page.goto(`${app.url}${form.publicUrl}`);
+  await page.getByLabel('Имя ·', { exact: false }).fill('СЕКРЕТ');
+  const search = page.getByLabel('Вуз ·', { exact: false });
+  for (const query of ['НетТакогоВуза', 'ДругойНесуществующийВуз']) {
+    await search.fill(query);
+    await page.getByText('Нет нужного варианта? Свяжитесь с организатором', { exact: true }).waitFor();
+  }
+  await page.route('**/api/catalogs/universities?*', route => route.abort());
+  await search.fill('Московский');
+  await page.getByText('Не удалось загрузить варианты. Измените запрос, чтобы повторить поиск.', { exact: true }).waitFor();
+  assert.equal(await page.getByRole('alert').isVisible(), false);
+  assert.equal(JSON.stringify(await page.evaluate(() => history.state)).includes('СЕКРЕТ'), false);
+  await page.unroute('**/events');
+  const delivered = page.waitForResponse(response => response.url().endsWith('/events') && response.request().postDataJSON().type === 'catalog_error');
+  await page.reload();
+  await delivered;
+  const stats = (await app.request(`/api/forms/${form.id}/analytics`)).body;
+  assert.equal(stats.views, 1);
+  assert.equal(stats.starts, 1);
+  assert.deepEqual(stats.fieldIssues.find(field => field.fieldId === 'university'), {
+    fieldId: 'university', label: 'Вуз', invalidFormat: 0, requiredMissing: 0, searchEmpty: 1, catalogError: 1,
+  });
+});
+
+test('ошибка загрузки курсов до начала заполнения учитывается для каждого поля курса', { timeout: 30000 }, async t => {
+  const { app, form, page } = await setup(t, [
+    { id: 'course', type: 'study_level_course', label: 'Курс', required: true },
+  ]);
+  await page.route('**/api/catalogs/study-courses', route => route.abort());
+  const delivered = page.waitForResponse(response => response.url().endsWith('/events') && response.request().postDataJSON().type === 'catalog_error');
+  await page.goto(`${app.url}${form.publicUrl}`);
+  await delivered;
+  const stats = (await app.request(`/api/forms/${form.id}/analytics`)).body;
+  assert.equal(stats.starts, 0);
+  assert.equal(stats.fieldIssues[0].catalogError, 1);
+  await page.unroute('**/api/catalogs/study-courses');
+  await page.getByRole('button', { name: 'Повторить загрузку', exact: true }).click();
+  await page.getByLabel('Курс ·', { exact: false }).waitFor();
+  assert.equal((await app.request(`/api/forms/${form.id}/analytics`)).body.views, 1);
+});
+
+test('повторное заполнение сохраняет недоставленные события предыдущей попытки', { timeout: 30000 }, async t => {
+  const { app, form, page } = await setup(t, [{ id: 'name', type: 'short_text', label: 'Имя', required: true }]);
+  await page.route('**/events', route => route.abort());
+  await page.goto(`${app.url}${form.publicUrl}`);
+  await page.getByRole('button', { name: 'Отправить отклик', exact: true }).click();
+  await page.getByLabel('Имя ·', { exact: false }).fill('Анна');
+  await page.getByRole('button', { name: 'Отправить отклик', exact: true }).click();
+  await page.getByRole('heading', { name: 'Отклик отправлен', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Заполнить ещё раз', exact: true }).click();
+  await page.getByLabel('Имя ·', { exact: false }).waitFor();
+  await page.unroute('**/events');
+  await page.reload();
+  await page.waitForFunction(async url => {
+    const stats = await (await fetch(url)).json();
+    return stats.submissionFunnel.validationFailed === 1;
+  }, `/api/forms/${form.id}/analytics`);
+  const stats = (await app.request(`/api/forms/${form.id}/analytics`)).body;
+  assert.equal(stats.views, 2);
+  assert.deepEqual(stats.submissionFunnel, { clicked: 1, validationFailed: 1, requestFailed: 0, accepted: 1 });
+  assert.equal(stats.fieldIssues[0].requiredMissing, 1);
+});
+
+test('доставка после сбоя сохраняет последнее поле при возвращении A → B → A', { timeout: 30000 }, async t => {
+  const { app, form, page } = await setup(t, [
+    { id: 'a', type: 'short_text', label: 'Поле A', required: false },
+    { id: 'b', type: 'short_text', label: 'Поле B', required: false },
+  ]);
+  await page.route('**/events', route => route.abort());
+  await page.goto(`${app.url}${form.publicUrl}`);
+  for (const [label, value] of [['Поле A', '1'], ['Поле B', '2'], ['Поле A', '3']]) {
+    await page.getByLabel(`${label} ·`, { exact: false }).fill(value);
+  }
+  await page.unroute('**/events');
+  const delivered = page.waitForResponse(response => response.url().endsWith('/events') && response.request().postDataJSON().type === 'change' && response.request().postDataJSON().fieldId === 'a');
+  await page.reload();
+  await delivered;
+  await page.waitForFunction(() => history.state.attempt.pending.length === 0);
+  const state = await page.evaluate(() => history.state);
+  const resumed = (await app.request(`${form.publicUrl}/attempts`, 'POST', { attemptId: state.attempt.id })).body;
+  assert.equal(resumed.lastFieldId, 'a');
 });

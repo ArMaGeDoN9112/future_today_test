@@ -45,6 +45,10 @@ test('публикация фиксирует содержание, управл
   const course = (await app.request(`/api/catalogs/study-courses?directionId=${direction.id}`)).body.items[0];
   const sent = (await app.request(`${published.publicUrl}/attempts`, 'POST', {})).body;
   await app.request(`${published.publicUrl}/attempts/${sent.id}/events`, 'POST', { type: 'change', fieldId: 'name' });
+  for (const type of ['submit', 'validation_failed', 'request_failed']) {
+    await app.request(`${published.publicUrl}/attempts/${sent.id}/events`, 'POST', { type });
+  }
+  await app.request(`${published.publicUrl}/attempts/${sent.id}/events`, 'POST', { type: 'search_empty', fieldId: 'university' });
   const response = await app.request(`${published.publicUrl}/responses`, 'POST', { attemptId: sent.id, answers: {
     name: unsafe, about: 'Две строки\nОб опыте', email: 'student@example.com', format: 'Удалённо',
     city: city.id, university: university.id, direction: direction.id, course: course.id,
@@ -58,7 +62,7 @@ test('публикация фиксирует содержание, управл
   await app.request(`${published.publicUrl}/attempts/${active.id}/events`, 'POST', { type: 'change', fieldId: 'email' });
   await page.getByRole('button', { name: 'Обновить отклики и аналитику', exact: true }).click();
   await page.getByRole('heading', { name: 'Отклики (1)', exact: true }).waitFor();
-  for (const [caption, expected] of [['Просмотры', '4'], ['Начатые заполнения', '3'], ['Отправленные отклики', '1'], ['В процессе', '1'], ['Незавершённые заполнения', '1']]) {
+  for (const [caption, expected] of [['Просмотры', '4'], ['Начатые заполнения', '3'], ['Отправленные отклики', '1'], ['В процессе', '1'], ['Незавершённые заполнения', '1'], ['Нажали отправить', '1'], ['Ошибка проверки', '1'], ['Сбой запроса отправки', '1'], ['Отклик принят', '1']]) {
     const metric = page.getByRole('term').filter({ hasText: new RegExp(`^${caption}$`) });
     assert.equal(await metric.locator('..').getByRole('definition').innerText(), expected);
   }
@@ -67,6 +71,9 @@ test('публикация фиксирует содержание, управл
     assert.ok((await replies.innerText()).includes(text), text);
   }
   assert.ok((await page.locator('body').innerText()).includes(`Попытка ${abandoned.id}`));
+  await page.getByRole('heading', { name: 'Воронка отправки', exact: true }).waitFor();
+  await page.getByRole('heading', { name: 'Затруднения по полям', exact: true }).waitFor();
+  assert.ok((await page.getByRole('heading', { name: 'Вуз', exact: true }).locator('..').innerText()).includes('Поиск не дал результатов: 1 из 4 попыток'));
   assert.equal(await page.locator('img').count(), 0);
   assert.equal(await page.evaluate(() => window.executed), undefined);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);

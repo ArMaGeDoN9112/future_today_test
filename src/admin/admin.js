@@ -296,6 +296,26 @@ async function publishedView(form) {
     metrics.append(item);
   }
   stats.append(metrics, el('p', 'Учитываются попытки заполнения, а не уникальные люди. Начатое заполнение без отклика становится незавершённым после 30 минут бездействия. Просмотр без изменений не считается незавершённым. Поздняя отправка корректирует показатели.'));
+  stats.append(el('h3', 'Воронка отправки'));
+  const funnel = el('dl');
+  funnel.className = 'metrics';
+  for (const [key, caption] of Object.entries({ clicked: 'Нажали отправить', validationFailed: 'Ошибка проверки', requestFailed: 'Сбой запроса отправки', accepted: 'Отклик принят' })) {
+    const item = el('div');
+    item.className = 'metric';
+    item.append(el('dt', caption), el('dd', String(analytics.submissionFunnel[key])));
+    funnel.append(item);
+  }
+  stats.append(funnel, el('p', 'Каждый этап учитывает попытку один раз. Этапы пересекаются: после ошибки студент может успешно отправить отклик. Принятие подтверждается сервером; сбой запроса также может означать потерю подтверждения уже принятого отклика. Отклики без попытки не входят в эту воронку.'));
+  stats.append(el('h3', 'Затруднения по полям'));
+  stats.append(el('p', `Всего посещений: ${analytics.views}, начатых заполнений: ${analytics.starts}. Для каждого типа затруднения попытка учитывается один раз, включая попытки без изменений и с принятым откликом.`));
+  for (const field of analytics.fieldIssues) {
+    const item = el('article');
+    item.append(el('h4', field.label));
+    for (const [key, caption] of Object.entries({ invalidFormat: 'Неверный формат или не выбран вариант', requiredMissing: 'Обязательное поле не заполнено', searchEmpty: 'Поиск не дал результатов', catalogError: 'Ошибка загрузки справочника' })) {
+      item.append(el('p', `${caption}: ${field[key]} из ${analytics.views} попыток`));
+    }
+    stats.append(item);
+  }
   stats.append(el('h3', 'Последние активные поля'));
   stats.append(el('p', 'Последнее активное поле показывает место остановки, а не установленную причину ухода.'));
   if (!analytics.lastActiveFields.length) stats.append(el('p', 'Незавершённых заполнений нет.'));
