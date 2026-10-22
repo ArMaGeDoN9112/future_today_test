@@ -311,11 +311,24 @@ async function publishedView(form) {
   const issues = el('div');
   issues.className = 'field-issues';
   for (const field of analytics.fieldIssues) {
+    const definition = form.fields.find(item => item.id === field.fieldId);
+    if (!definition) continue;
+    /** @type {Record<string, string>} */
+    const checks = {};
+    if (definition.required) checks.requiredMissing = 'Обязательное поле не заполнено';
+    if (definition.type === 'email') checks.invalidFormat = 'Некорректный email';
+    const searchable = ['city', 'university', 'study_direction'].includes(definition.type);
+    if (searchable) {
+      checks.invalidFormat = 'Вариант из справочника не выбран';
+      checks.searchEmpty = 'Поиск не дал результатов';
+    }
+    if (searchable || definition.type === 'study_level_course') checks.catalogError = 'Ошибка загрузки справочника';
+    if (!Object.keys(checks).length) continue;
     const item = el('article');
     item.className = 'field-issue-card';
     item.append(el('h4', field.label));
     const breakdown = el('dl');
-    for (const [key, caption] of Object.entries({ invalidFormat: 'Неверный формат или не выбран вариант', requiredMissing: 'Обязательное поле не заполнено', searchEmpty: 'Поиск не дал результатов', catalogError: 'Ошибка загрузки справочника' })) {
+    for (const [key, caption] of Object.entries(checks)) {
       const count = field[key];
       const percent = analytics.views ? Math.round(count / analytics.views * 100) : 0;
       const row = el('div');
@@ -337,6 +350,7 @@ async function publishedView(form) {
     item.append(breakdown);
     issues.append(item);
   }
+  if (!issues.children.length) issues.append(el('p', 'Для вопросов этой формы нет отдельных проверок.'));
   stats.append(issues);
   const unfinished = el('section');
   unfinished.setAttribute('aria-label', 'Незавершённые заполнения по вопросам');

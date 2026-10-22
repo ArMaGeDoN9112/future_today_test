@@ -5,6 +5,51 @@ import { test } from 'node:test';
 import { chromium } from 'playwright';
 import { start } from '../test-support/server.js';
 
+test('затруднения показывают только применимые к типу и обязательности поля проверки', { timeout: 30000 }, async t => {
+  const cwd = await mkdtemp(resolve('.test-data-'));
+  const app = await start(cwd);
+  t.after(async () => { await app.stop(); await rm(cwd, { recursive: true, force: true }); });
+  const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL });
+  t.after(() => browser.close());
+  const checks = [
+    ['short_text', []],
+    ['long_text', []],
+    ['single_choice', []],
+    ['multiple_choice', []],
+    ['email', ['Некорректный email']],
+    ['city', ['Вариант из справочника не выбран', 'Поиск не дал результатов', 'Ошибка загрузки справочника']],
+    ['university', ['Вариант из справочника не выбран', 'Поиск не дал результатов', 'Ошибка загрузки справочника']],
+    ['study_direction', ['Вариант из справочника не выбран', 'Поиск не дал результатов', 'Ошибка загрузки справочника']],
+    ['study_level_course', ['Ошибка загрузки справочника']],
+  ];
+  const fields = checks.flatMap(([type]) => [false, true].map(required => ({
+    id: `${type}-${required}`, type, label: `${type}-${required}`, required,
+    ...(['single_choice', 'multiple_choice'].includes(type) ? { options: ['Да', 'Нет'] } : {}),
+  })));
+  const draft = await app.request('/api/forms', 'POST', { title: 'Проверки полей', fields });
+  assert.equal(draft.status, 201);
+  await app.request(`/api/forms/${draft.body.id}/publish`, 'POST');
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  page.setDefaultTimeout(5000);
+  await page.goto(`${app.url}/admin#${draft.body.id}`);
+  await page.getByRole('heading', { name: 'Затруднения по полям', exact: true }).waitFor();
+  for (const [type, captions] of checks) {
+    for (const required of [false, true]) {
+      const expected = [...(required ? ['Обязательное поле не заполнено'] : []), ...captions];
+      const heading = page.getByRole('heading', { name: `${type}-${required}`, exact: true });
+      if (!expected.length) assert.equal(await heading.count(), 0);
+      else assert.deepEqual(await heading.locator('..').getByRole('term').allTextContents(), expected);
+    }
+  }
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  const textOnly = (await app.request('/api/forms', 'POST', {
+    title: 'Необязательный текст', fields: [{ id: 'text', type: 'short_text', label: 'Комментарий', required: false }],
+  })).body;
+  await app.request(`/api/forms/${textOnly.id}/publish`, 'POST');
+  await page.goto(`${app.url}/admin#${textOnly.id}`);
+  await page.getByText('Для вопросов этой формы нет отдельных проверок.', { exact: true }).waitFor();
+});
+
 test('публикация фиксирует содержание, управление приёмом сохраняет ссылку, отклики и аналитику', { timeout: 30000 }, async t => {
   const cwd = await mkdtemp(resolve('.test-data-'));
   const now = Date.parse('2026-10-22T12:00:00Z');
