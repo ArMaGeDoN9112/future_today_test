@@ -1,6 +1,7 @@
+import { blockWrites } from '../test-support/storage.js';
 import { start } from '../test-support/server.js';
 import assert from 'node:assert/strict';
-import { mkdtemp, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, rm } from 'node:fs/promises';
 import { request as httpRequest } from 'node:http';
 import { resolve } from 'node:path';
 import { test } from 'node:test';
@@ -96,17 +97,13 @@ test('ошибка записи не выдаётся за успех и не и
   t.after(async () => { await app.stop(); await rm(cwd, { recursive: true, force: true }); });
   const draft = (await app.request('/api/forms', 'POST', { title: 'Сохранено', fields: [] })).body;
   const path = `/api/forms/${draft.id}`;
-  const data = resolve(cwd, 'data');
-  const backup = resolve(cwd, 'data-backup');
-  await rename(data, backup);
-  await writeFile(data, 'Хранилище временно недоступно');
+  const release = blockWrites(t, cwd);
   assert.equal((await app.request(path, 'PATCH', { title: 'Не сохранено' })).status, 500);
   assert.equal((await app.request(`${path}/publish`, 'POST')).status, 500);
   assert.equal((await app.request('/api/forms', 'POST', { title: 'Не создано', fields: [] })).status, 500);
   assert.deepEqual((await app.request(path)).body, draft);
   assert.deepEqual((await app.request('/api/forms')).body, [draft]);
-  await rm(data);
-  await rename(backup, data);
+  release();
   await app.stop();
   app = await start(cwd);
   assert.deepEqual((await app.request('/api/forms')).body, [draft]);

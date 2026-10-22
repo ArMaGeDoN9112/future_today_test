@@ -1,5 +1,6 @@
+import { blockWrites } from '../test-support/storage.js';
 import assert from 'node:assert/strict';
-import { cp, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { test } from 'node:test';
 import { request as httpRequest } from 'node:http';
@@ -173,16 +174,12 @@ test('отказ записи не подтверждает и не добавл
   const form = await publish(fixture.app, []);
   const first = await fixture.app.request(`${form.publicUrl}/responses`, 'POST', { answers: {} });
   assert.equal(first.status, 201);
-  const data = resolve(fixture.cwd, 'data');
-  const backup = resolve(fixture.cwd, 'data-backup');
-  await rename(data, backup);
-  await writeFile(data, 'Хранилище временно недоступно');
+  const release = blockWrites(t, fixture.cwd);
   const failed = await fixture.app.request(`${form.publicUrl}/responses`, 'POST', { answers: {} });
   assert.equal(failed.status, 500);
   assert.ok(failed.body.error);
   assert.deepEqual((await fixture.app.request(`/api/forms/${form.id}/responses`)).body.responses, [first.body]);
-  await rm(data);
-  await rename(backup, data);
+  release();
   await fixture.restart();
   assert.deepEqual((await fixture.app.request(`/api/forms/${form.id}/responses`)).body.responses, [first.body]);
   assert.equal((await fixture.app.request(`${form.publicUrl}/responses`, 'POST', { answers: {} })).status, 201);

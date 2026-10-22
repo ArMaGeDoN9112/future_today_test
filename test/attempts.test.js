@@ -1,5 +1,6 @@
+import { blockWrites } from '../test-support/storage.js';
 import assert from 'node:assert/strict';
-import { mkdtemp, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { test } from 'node:test';
 import { start } from '../test-support/server.js';
@@ -193,16 +194,12 @@ test('отказ записи не добавляет просмотр, нача
   const form = await publish(app);
   const first = await attempt(app, form);
   const before = await analytics(app, form);
-  const data = resolve(fixture.cwd, 'data');
-  const backup = resolve(fixture.cwd, 'data-backup');
-  await rename(data, backup);
-  await writeFile(data, 'Хранилище временно недоступно');
+  const release = blockWrites(t, fixture.cwd);
   assert.equal((await app.request(`${form.publicUrl}/attempts`, 'POST', {})).status, 500);
   assert.equal((await event(app, form, first, { type: 'change', fieldId: 'name' })).status, 500);
   assert.equal((await app.request(`${form.publicUrl}/responses`, 'POST', { attemptId: first.id, answers: { name: 'Анна' } })).status, 500);
   assert.deepEqual(await analytics(app, form), before);
-  await rm(data);
-  await rename(backup, data);
+  release();
   await fixture.restart();
   assert.deepEqual(await analytics(fixture.app, form), before);
   assert.equal((await event(fixture.app, form, first, { type: 'change', fieldId: 'name' })).status, 200);
