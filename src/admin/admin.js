@@ -253,17 +253,23 @@ async function publishedView(form) {
   content.append(el('p', 'Содержание зафиксировано при публикации и недоступно для редактирования.'));
   if (form.publicUrl) {
     const url = new URL(form.publicUrl, location.origin).href;
-    const paragraph = el('p', 'Ссылка для студентов: ');
+    const paragraph = el('p', 'Публичная ссылка: ');
     paragraph.append(link(url, url));
     content.append(paragraph);
   }
   const schema = el('section');
   schema.append(el('h2', 'Содержание формы'));
-  for (const field of form.fields) {
-    const description = el('dl');
-    description.append(el('dt', field.label), el('dd', `${types[/** @type {keyof typeof types} */ (field.type)]} · ${field.required ? 'Обязательное' : 'Необязательное'}`));
-    if (field.options) description.append(el('dt', 'Варианты ответа'), el('dd', field.options.join('\n')));
-    schema.append(description);
+  for (const [index, field] of form.fields.entries()) {
+    const question = el('article');
+    question.className = 'field-issue-card form-question';
+    question.append(el('h3', `Вопрос ${index + 1}. ${field.label}`));
+    question.append(el('p', `${types[/** @type {keyof typeof types} */ (field.type)]} · ${field.required ? 'Обязательное' : 'Необязательное'}`));
+    if (field.options) {
+      const options = el('dl');
+      options.append(el('dt', 'Варианты ответа'), el('dd', field.options.join('\n')));
+      question.append(options);
+    }
+    schema.append(question);
   }
   if (!form.fields.length) schema.append(el('p', 'В форме нет полей.'));
   content.append(schema);
@@ -307,7 +313,7 @@ async function publishedView(form) {
     item.append(el('dt', caption), el('dd', String(analytics[key])));
     metrics.append(item);
   }
-  stats.append(metrics, el('p', 'Учитываются попытки заполнения, а не уникальные люди. Начатое заполнение без отклика становится незавершённым после 30 минут бездействия. Просмотр без изменений не считается незавершённым. Поздняя отправка корректирует показатели.'));
+  stats.append(metrics);
   stats.append(el('h3', 'Воронка отправки'));
   const funnel = el('dl');
   funnel.className = 'metrics';
@@ -317,9 +323,8 @@ async function publishedView(form) {
     item.append(el('dt', caption), el('dd', String(analytics.submissionFunnel[key])));
     funnel.append(item);
   }
-  stats.append(funnel, el('p', 'Каждый этап учитывает попытку один раз. Этапы пересекаются: после ошибки студент может успешно отправить отклик. Принятие подтверждается сервером; сбой запроса также может означать потерю подтверждения уже принятого отклика. Отклики без попытки не входят в эту воронку.'));
+  stats.append(funnel);
   stats.append(el('h3', 'Затруднения по полям'));
-  stats.append(el('p', `Всего посещений: ${analytics.views}, начатых заполнений: ${analytics.starts}. Для каждого типа затруднения попытка учитывается один раз, включая попытки без изменений и с принятым откликом.`));
   const issues = el('div');
   issues.className = 'field-issues';
   for (const field of analytics.fieldIssues) {

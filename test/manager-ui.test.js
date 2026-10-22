@@ -92,6 +92,11 @@ test('публикация фиксирует содержание, управл
   page.once('dialog', dialog => dialog.accept());
   await page.getByRole('button', { name: 'Опубликовать форму', exact: true }).click();
   await page.getByRole('heading', { name: 'Содержание формы', exact: true }).waitFor();
+  const schema = page.getByRole('heading', { name: 'Содержание формы', exact: true }).locator('..');
+  assert.equal(await schema.getByRole('article').count(), fields.length);
+  assert.deepEqual(await schema.getByRole('heading', { level: 3 }).allTextContents(), fields.map((field, index) => `Вопрос ${index + 1}. ${field.label}`));
+  assert.ok((await schema.getByRole('article').nth(0).innerText()).includes('Короткий текст · Обязательное'));
+  assert.ok((await schema.getByRole('article').nth(3).innerText()).includes('Очно\nУдалённо'));
   await page.getByRole('heading', { name: 'Отклики (0)', exact: true }).waitFor();
   assert.equal(await page.getByLabel('Название формы', { exact: true }).count(), 0);
   assert.equal(await page.getByRole('button', { name: 'Сохранить черновик', exact: true }).count(), 0);
