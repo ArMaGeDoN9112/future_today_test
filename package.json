@@ -9,10 +9,11 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test",
-    "typecheck": "tsc --noEmit --allowJs --checkJs --module nodenext --target es2022 --types node --strict src/server.js"
+    "typecheck": "tsc --noEmit --allowJs --checkJs --module nodenext --target es2022 --types node --strict src/server.js src/admin/admin.js"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
+    "playwright": "^1.64.1",
     "typescript": "^7.0.2"
   }
 }

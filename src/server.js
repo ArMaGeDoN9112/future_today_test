@@ -251,6 +251,22 @@ const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url ?? '/', 'http://localhost');
     const path = url.pathname;
+    const asset = {
+      '/admin': ['admin.html', 'text/html'],
+      '/admin/admin.js': ['admin.js', 'text/javascript'],
+      '/admin/admin.css': ['admin.css', 'text/css'],
+    }[path];
+    if (asset) {
+      if (request.method !== 'GET' && request.method !== 'HEAD') throw new HttpError(405, 'Метод не поддерживается.');
+      const data = readFileSync(new URL(`./admin/${asset[0]}`, import.meta.url));
+      response.writeHead(200, {
+        'Content-Type': `${asset[1]}; charset=utf-8`, 'Cache-Control': 'no-store',
+        'X-Content-Type-Options': 'nosniff',
+        'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+      });
+      response.end(request.method === 'HEAD' ? undefined : data);
+      return;
+    }
     const catalogMatch = path.match(/^\/api\/catalogs\/(cities|universities|study-directions|study-courses)(?:\/([^/]+))?$/);
     let result;
     let status = 200;
