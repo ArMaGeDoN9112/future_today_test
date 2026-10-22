@@ -125,7 +125,7 @@ const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url ?? '/', 'http://localhost');
     const path = url.pathname;
-    const catalogMatch = path.match(/^\/api\/catalogs\/(cities|universities)(?:\/([^/]+))?$/);
+    const catalogMatch = path.match(/^\/api\/catalogs\/(cities|universities|study-directions|study-courses)(?:\/([^/]+))?$/);
     let result;
     let status = 200;
     if (catalogMatch) {
@@ -136,7 +136,13 @@ const server = createServer(async (request, response) => {
         if (!item) throw new HttpError(404, 'Значение справочника не найдено.');
         result = { version: catalogVersion, item };
       } else {
-        result = { version: catalogVersion, items: searchCatalog(kind, url.searchParams.get('q') ?? '') };
+        let level;
+        if (kind === 'study-courses' && url.searchParams.has('directionId')) {
+          const direction = getCatalogEntry('study-directions', url.searchParams.get('directionId') ?? '');
+          if (!direction) throw new HttpError(404, 'Направление обучения не найдено.');
+          level = direction.level;
+        }
+        result = { version: catalogVersion, items: searchCatalog(kind, url.searchParams.get('q') ?? '', level) };
       }
     } else if (path === '/api/forms' && request.method === 'GET') {
       result = forms;
