@@ -25,6 +25,8 @@ input[type="checkbox"] { width: 20px; height: 20px; margin: 0; }
 fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin: 20px 0; min-width: 0; }
 legend { font-weight: 700; padding: 0 8px; }
 .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 20px 0; }
+.choice-option { display: flex; gap: 12px; align-items: end; margin-bottom: 12px; }
+.choice-option > div { flex: 1; min-width: 0; }
 .badge { display: inline-block; background: #e8eef8; color: #253b62; border-radius: 20px; padding: 4px 12px; font-size: .875rem; font-weight: 600; }
 .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .metric { background: var(--background); border-radius: 8px; padding: 16px; }

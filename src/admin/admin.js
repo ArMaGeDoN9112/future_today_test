@@ -144,19 +144,47 @@ function editor(form) {
     const required = el('input');
     required.type = 'checkbox';
     required.checked = field.required;
-    const options = el('textarea');
-    options.value = field.options?.join('\n') ?? '';
-    const optionsLabel = label('Варианты ответа', options);
-    optionsLabel.append(el('small', 'Каждый вариант — с новой строки.'));
+    const options = el('div');
+    options.className = 'choice-options';
+    const optionsGroup = el('div');
+    const addOptionButton = button('+ Добавить вариант', () => { addOption('').focus(); changed(); });
+    optionsGroup.append(el('p', 'Варианты ответа'), options, addOptionButton);
+    function renumberOptions() {
+      [...options.children].forEach((row, index) => {
+        /** @type {HTMLLabelElement} */ (row.querySelector('label')).textContent = `Вариант ${index + 1}`;
+        const remove = /** @type {HTMLButtonElement} */ (row.querySelector('button'));
+        remove.setAttribute('aria-label', `Удалить вариант ${index + 1}`);
+        remove.disabled = options.children.length === 1;
+      });
+    }
+    /** @param {string} value */
+    function addOption(value) {
+      const input = el('input');
+      input.value = value;
+      input.required = type.value === 'single_choice';
+      const row = el('div');
+      row.className = 'choice-option';
+      row.append(label('', input), button('×', () => {
+        const next = row.nextElementSibling ?? row.previousElementSibling;
+        row.remove();
+        renumberOptions();
+        next?.querySelector('input')?.focus();
+        changed();
+      }));
+      options.append(row);
+      renumberOptions();
+      return input;
+    }
+    for (const value of field.options?.length ? field.options : ['']) addOption(value);
     function updateOptions() {
-      optionsLabel.hidden = type.value !== 'single_choice';
-      options.required = type.value === 'single_choice';
+      optionsGroup.hidden = type.value !== 'single_choice';
+      for (const input of options.querySelectorAll('input')) input.required = type.value === 'single_choice';
     }
     type.onchange = updateOptions;
     updateOptions();
     const remove = button('Удалить поле', () => { group.remove(); renumber(); changed(); });
     group.dataset.id = field.id;
-    group.append(legend, label('Подпись поля', caption), label('Тип поля', type), label('Обязательное поле', required), optionsLabel, remove);
+    group.append(legend, label('Подпись поля', caption), label('Тип поля', type), label('Обязательное поле', required), optionsGroup, remove);
     fields.append(group);
     renumber();
   }
@@ -164,7 +192,7 @@ function editor(form) {
   function renumber() {
     [...fields.children].forEach((group, index) => {
       /** @type {HTMLLegendElement} */ (group.querySelector('legend')).textContent = `Поле ${index + 1}`;
-      /** @type {HTMLButtonElement} */ (group.querySelector('button')).textContent = `Удалить поле ${index + 1}`;
+      /** @type {HTMLButtonElement} */ (group.querySelector(':scope > button')).textContent = `Удалить поле ${index + 1}`;
     });
   }
   for (const field of form?.fields ?? []) addField(field);
@@ -184,7 +212,7 @@ function editor(form) {
         const type = /** @type {HTMLSelectElement} */ (group.querySelector('select')).value;
         return {
           id: /** @type {HTMLElement} */ (group).dataset.id, label: inputs[0].value, type, required: inputs[1].checked,
-          ...(type === 'single_choice' ? { options: /** @type {HTMLTextAreaElement} */ (group.querySelector('textarea')).value.split('\n').map(value => value.trim()) } : {}),
+          ...(type === 'single_choice' ? { options: [...group.querySelectorAll('.choice-options input')].map(input => /** @type {HTMLInputElement} */ (input).value.trim()) } : {}),
         };
       }),
     };
