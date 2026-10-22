@@ -42,6 +42,20 @@ test('затруднения показывают только применим�
     }
   }
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  const collapse = page.getByRole('button', { name: 'Свернуть аналитику', exact: true });
+  assert.equal(await collapse.getAttribute('aria-expanded'), 'true');
+  const statsId = await collapse.getAttribute('aria-controls');
+  await collapse.focus();
+  await collapse.press('Enter');
+  const expand = page.getByRole('button', { name: 'Развернуть аналитику', exact: true });
+  assert.equal(await expand.getAttribute('aria-expanded'), 'false');
+  assert.equal(await page.locator(`#${statsId}`).isVisible(), false);
+  assert.equal(await page.getByRole('heading', { name: 'Аналитика заполнений', exact: true }).isVisible(), true);
+  assert.equal(await page.getByRole('region', { name: 'Отклики (0)', exact: true }).isVisible(), true);
+  await expand.press('Space');
+  assert.equal(await collapse.getAttribute('aria-expanded'), 'true');
+  assert.equal(await page.locator(`#${statsId}`).isVisible(), true);
+  await page.getByRole('heading', { name: 'Воронка отправки', exact: true }).waitFor();
   const textOnly = (await app.request('/api/forms', 'POST', {
     title: 'Необязательный текст', fields: [{ id: 'text', type: 'short_text', label: 'Комментарий', required: false }],
   })).body;

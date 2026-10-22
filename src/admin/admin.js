@@ -285,8 +285,20 @@ async function publishedView(form) {
     throw cause;
   });
   results.replaceChildren();
-  const stats = el('section');
-  stats.append(el('h2', 'Аналитика заполнений'));
+  const analyticsSection = el('section');
+  const stats = el('div');
+  stats.id = `analytics-${form.id}`;
+  const toggleAnalytics = button('Свернуть аналитику', () => {
+    stats.hidden = !stats.hidden;
+    toggleAnalytics.textContent = stats.hidden ? 'Развернуть аналитику' : 'Свернуть аналитику';
+    toggleAnalytics.setAttribute('aria-expanded', String(!stats.hidden));
+  });
+  toggleAnalytics.setAttribute('aria-expanded', 'true');
+  toggleAnalytics.setAttribute('aria-controls', stats.id);
+  const analyticsHeading = el('div');
+  analyticsHeading.className = 'section-heading';
+  analyticsHeading.append(el('h2', 'Аналитика заполнений'), toggleAnalytics);
+  analyticsSection.append(analyticsHeading, stats);
   const metrics = el('dl');
   metrics.className = 'metrics';
   for (const [key, caption] of Object.entries({ views: 'Просмотры', starts: 'Начатые заполнения', submissions: 'Отправленные отклики', inProgress: 'В процессе', abandoned: 'Незавершённые заполнения' })) {
@@ -414,7 +426,7 @@ async function publishedView(form) {
     item.append(header, answers);
     replies.append(item);
   }
-  results.append(stats, replies);
+  results.append(analyticsSection, replies);
 }
 
 async function navigate() {
