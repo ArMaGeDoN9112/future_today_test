@@ -276,6 +276,7 @@ async function publishedView(form) {
   if (!responses.count) replies.append(el('p', 'Пока нет откликов. Поделитесь ссылкой на форму.'));
   for (const [index, response] of /** @type {FormResponse[]} */ (responses.responses).entries()) {
     const item = el('article');
+    item.className = 'response-card';
     item.append(el('h3', `Отклик ${index + 1} · ${new Date(response.submittedAt).toLocaleString('ru-RU')}`));
     const answers = el('dl');
     for (const field of form.fields) answers.append(el('dt', field.label), el('dd', answer(response.answers[field.id])));

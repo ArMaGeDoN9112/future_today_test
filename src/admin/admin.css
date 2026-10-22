@@ -30,6 +30,10 @@ legend { font-weight: 700; padding: 0 8px; }
 .metric { background: var(--background); border-radius: 8px; padding: 16px; }
 .metric dt { color: var(--muted); }
 .metric dd { font-size: 1.875rem; font-weight: 700; margin: 6px 0 0; }
+.response-card { background: var(--background); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-top: 20px; }
+.response-card h3 { margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.response-card dl { margin: 0; }
+.response-card dd:last-child { margin-bottom: 0; }
 dt { font-weight: 600; overflow-wrap: anywhere; }
 dd { margin: 4px 0 16px; white-space: pre-wrap; overflow-wrap: anywhere; }
 #message:not(:empty) { padding: 12px 0; font-weight: 600; }
