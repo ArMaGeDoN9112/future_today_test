@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test",
-    "typecheck": "tsc --noEmit --allowJs --checkJs --module nodenext --target es2022 --types node --strict src/server.js src/admin/admin.js"
+    "typecheck": "tsc --noEmit --allowJs --checkJs --module nodenext --target es2022 --types node --strict src/server.js src/admin/admin.js src/student/student.js"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",

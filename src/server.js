@@ -252,15 +252,19 @@ const server = createServer(async (request, response) => {
     const url = new URL(request.url ?? '/', 'http://localhost');
     const path = url.pathname;
     const asset = {
-      '/admin': ['admin.html', 'text/html'],
-      '/admin/admin.js': ['admin.js', 'text/javascript'],
-      '/admin/admin.css': ['admin.css', 'text/css'],
+      '/admin': ['admin/admin.html', 'text/html'],
+      '/admin/admin.js': ['admin/admin.js', 'text/javascript'],
+      '/admin/admin.css': ['admin/admin.css', 'text/css'],
+      '/student/student.js': ['student/student.js', 'text/javascript'],
+      '/student/student.css': ['student/student.css', 'text/css'],
     }[path];
-    if (asset) {
+    const studentPage = /^\/forms\/[^/]+$/.test(path) && request.headers.accept?.includes('text/html');
+    if (asset || studentPage) {
       if (request.method !== 'GET' && request.method !== 'HEAD') throw new HttpError(405, 'Метод не поддерживается.');
-      const data = readFileSync(new URL(`./admin/${asset[0]}`, import.meta.url));
+      const [file, mime] = asset ?? ['student/student.html', 'text/html'];
+      const data = readFileSync(new URL(`./${file}`, import.meta.url));
       response.writeHead(200, {
-        'Content-Type': `${asset[1]}; charset=utf-8`, 'Cache-Control': 'no-store',
+        'Content-Type': `${mime}; charset=utf-8`, 'Cache-Control': 'no-store', 'Vary': 'Accept',
         'X-Content-Type-Options': 'nosniff',
         'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
       });

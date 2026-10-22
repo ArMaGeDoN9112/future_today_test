@@ -1,0 +1,8 @@
+main { max-width: 760px; }
+.field { margin: 24px 0; }
+.field-error { color: var(--error); margin: 6px 0; }
+[aria-invalid="true"] { border-color: var(--error); }
+label, option { overflow-wrap: anywhere; }
+.hint { color: var(--muted); font-size: .875rem; }
+.hint { overflow-wrap: anywhere; }
+button:active { filter: brightness(.92); }
