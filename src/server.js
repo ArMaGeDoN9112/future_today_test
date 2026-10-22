@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
 import { closeSync, fsyncSync, mkdirSync, openSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { catalogVersion, getCatalogEntry, searchCatalog } from './catalogs.js';
 
 /** @typedef {{id: string, type: string, label: string, required: boolean, options?: string[]}} Field */
 /** @typedef {{id: string, title: string, fields: Field[], status: 'draft' | 'published' | 'closed', publicUrl: string | null}} Form */
@@ -122,10 +123,22 @@ async function readBody(request) {
 
 const server = createServer(async (request, response) => {
   try {
-    const path = new URL(request.url ?? '/', 'http://localhost').pathname;
+    const url = new URL(request.url ?? '/', 'http://localhost');
+    const path = url.pathname;
+    const catalogMatch = path.match(/^\/api\/catalogs\/(cities|universities)(?:\/([^/]+))?$/);
     let result;
     let status = 200;
-    if (path === '/api/forms' && request.method === 'GET') {
+    if (catalogMatch) {
+      if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
+      const kind = /** @type {import('./catalogs.js').CatalogKind} */ (catalogMatch[1]);
+      if (catalogMatch[2]) {
+        const item = getCatalogEntry(kind, catalogMatch[2]);
+        if (!item) throw new HttpError(404, 'Значение справочника не найдено.');
+        result = { version: catalogVersion, item };
+      } else {
+        result = { version: catalogVersion, items: searchCatalog(kind, url.searchParams.get('q') ?? '') };
+      }
+    } else if (path === '/api/forms' && request.method === 'GET') {
       result = forms;
     } else if (path === '/api/forms' && request.method === 'POST') {
       const body = content(await readBody(request), false);

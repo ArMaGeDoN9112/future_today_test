@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?name WHERE {
+  ?item wdt:P17 wd:Q159;
+        wdt:P31/wdt:P279* wd:Q3918;
+        rdfs:label ?name.
+  FILTER(LANG(?name) = "ru")
+  FILTER NOT EXISTS { ?item wdt:P576 ?end }
+}
+ORDER BY ?item

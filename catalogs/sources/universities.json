@@ -1,0 +1,4448 @@
+{
+  "head" : {
+    "vars" : [ "item", "name" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q102398759"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пушкинское высшее ордена Красной Звезды училище радиоэлектроники противовоздушной обороны имени маршала авиации Е. Я. Савицкого"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q102398847"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военный университет радиоэлектроники"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103831511"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пограничная академия ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103831705"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Саратовское высшее военное инженерное училище химической защиты"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103831957"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский институт правительственной связи"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103832270"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Институт береговой охраны ФCБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103920423"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Институт Федеральной службы безопасности Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103920735"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский институт ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103921049"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нижегородский институт ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1051345"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тихоокеанский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1054816"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный лингвистический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1055243"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Бурятский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1056886"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Первый Санкт-Петербургский государственный медицинский университет имени академика И. П. Павлова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1059283"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Хакасский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1084099"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский христианский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1094873"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сахалинский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110279659"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Здание Дагестанского Исламского университета им Имама Шафи'ий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110936726"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Орский педагогический институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110940012"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Коми государственный педагогический институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111108296"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Борисоглебский государственный педагогический институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1131600"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный университет управления"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113788"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1141929"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военный институт (инженерно-технический)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q114436530"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Луганский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q114712246"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уфимский университет науки и технологий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1152922"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Общевойсковая академия Вооружённых сил Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1166885"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118736"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Независимый Московский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121767764"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Евразийский международный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123422536"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Университет при Межпарламентской Ассамблее ЕврАзЭС"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123501729"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Донбасский государственный университет юстиции"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1239515"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Томский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124307229"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Свободный университет (Россия)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1296887"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1297796"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военно-морская академия имени Н. Г. Кузнецова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q133965"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кубанский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1341318"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия связи имени С. М. Будённого"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13416137"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военный университет Министерства обороны Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13416753"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Рязанский государственный агротехнологический университет имени П. А. Костычева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13416757"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Приморский государственный аграрно-технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13419624"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тюменский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1342013"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Университет ИТМО"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134732210"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Университет управления и инновационных технологий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q135268304"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургская юридическая академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1366589"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Международный университет природы, общества и человека «Дубна»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1367256"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "МФТИ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137355"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137360"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омский государственный аграрный университет имени П. А. Столыпина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1379834"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский политехнический университет Петра Великого"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138662733"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Центральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795760"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Железногорский филиал СибГАУ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795792"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Железногорский филиал КГПУ им. Астафьева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138795807"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "филиал СФУ в Железногорске"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q140812516"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Центральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q141460888"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Школа кино «Индустрия»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1416632"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Финансовый университет при Правительстве Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1459393"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военно-медицинская академия имени С. М. Кирова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1466666"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Томский политехнический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1467445"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1467657"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Иркутский национальный исследовательский технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1472245"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный технический университет имени Н. Э. Баумана"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1477512"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский университет транспорта"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1493008"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1506552"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский федеральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1511650"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тульский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1540876"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный институт кино и телевидения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1552981"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный университет нефти и газа"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1592900"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия материально-технического обеспечения имени А. В. Хрулёва"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1614474"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Волгоградский государственный социально-педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1628544"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Балтийский государственный технический университет «ВОЕНМЕХ» имени Д.Ф. Устинова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1628690"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1628699"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский академический университет им. Ж.И. Алфёрова РАН"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1628728"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1628751"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный университет аэрокосмического приборостроения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1637997"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16423702"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Вологодский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1664127"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омский государственный университет имени Ф. М. Достоевского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16656914"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1719898"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский авиационный институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1736331"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Томский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1751487"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Южно-Российский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1773512"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный университет туризма и сервиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17749157"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Крымский федеральный университет имени В. И. Вернадского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1777988"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Южно-Уральский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1778321"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский педагогический государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1791304"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военный институт (инженерных войск) Общевойсковой академии Вооружённых Сил Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1807470"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q182118"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Национальный исследовательский университет «МИЭТ»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18399277"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский исламский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1869280"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Восточный федеральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18786086"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московская школа нового кино"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18786156"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Университет Иннополис"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1934911"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия Генерального штаба Вооружённых сил Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1938341"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1959511"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Высшая школа экономики"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1961160"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный горный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1962613"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сеченовский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1968714"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Рязанское высшее воздушно-десантное командное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1978570"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Академия внешней разведки"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1987511"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Севастопольский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1987532"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Заокский адвентистский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19908493"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный университет морского и речного флота имени адмирала С. О. Макарова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2004114"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский экономический университет имени Г. В. Плеханова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2010483"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Белгородский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2031051"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пермский государственный национальный исследовательский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2065921"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Южный федеральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2103656"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный архитектурно-художественный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2151478"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Оренбургский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21574120"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Самарский национальный исследовательский университет имени академика С. П. Королёва"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2165080"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный экономический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21745516"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военно-морской политехнический институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2177054"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский институт театрального искусства — ГИТИС"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2177111"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский национальный исследовательский медицинский университет имени Н. И. Пирогова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2212056"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2227802"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q224802"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "МЭИ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2250766"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия воздушно-космической обороны имени Маршала Советского Союза Г. К. Жукова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2324453"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тихоокеанский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2333286"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Южно-Уральский государственный гуманитарно-педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2333300"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Челябинский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2333445"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Рязанский государственный медицинский университет имени академика И. П. Павлова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2333455"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный университет геодезии и картографии"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2339907"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2349268"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ульяновский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2354119"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный экономический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2360835"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный художественно-промышленный университет имени С. Г. Строганова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2378801"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Петербургский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2382644"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский федеральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2387574"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Академия Федеральной службы безопасности России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2426185"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Медицинская академия имени С. И. Георгиевского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24932362"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Краснодарское высшее военное училище имени генерала армии С. М. Штеменко"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2495829"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский горный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25403354"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Иркутский государственный аграрный университет имени А.А. Ежевского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2563807"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Грозненский государственный нефтяной технический университет имени академика М. Д. Миллионщикова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2563821"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дагестанский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2564313"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Чеченский государственный университет им. А.А. Кадырова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q257249"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2631070"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный гуманитарный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2706876"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Чувашский государственный университет имени И. Н. Ульянова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q277872"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский гуманитарный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2782346"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный лесотехнический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28051107"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Технический университет УГМК"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28099767"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Кавказский исламский университет им. шейха Мухаммад-Арифа"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28656901"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кабардино-Балкарский государственный аграрный университет имени В. М. Кокова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28666930"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Корпоративный университет развития образования"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29015302"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Кавказский исламский университет им. имама Абу Ханифы"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2907816"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Читинская государственная медицинская академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2996600"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Николаевская академия Генерального штаба"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3025301"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военно-космическая академия имени А. Ф. Можайского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30257433"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пензенский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30257472"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Камчатский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30257604"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский гуманитарно-экономический институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30257684"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Университет мировых цивилизаций имени В.В. Жириновского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30257746"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский Университет имени С.Ю. Витте"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3135719"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный горный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3151770"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский химико-технологический университет имени Д. И. Менделеева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q322964"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "МГИМО"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q323681"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный педагогический университет им. А. И. Герцена"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3272997"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "МИРЭА"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3439770"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Астраханский государственный университет им. В. Н. Татищева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3461622"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Алтайский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3533383"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Волгоградский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3533388"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тверской государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3551556"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тувинский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3626706"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Чувашский государственный педагогический университет имени И. Я. Яковлева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3700204"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный педиатрический медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3701429"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Алтайский государственный технический университет имени И. И. Ползунова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q387543"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Иркутский государственный лингвистический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q400422"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Саратовский национальный исследовательский государственный университет имени Н. Г. Чернышевского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4059216"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Академия ФСО России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4062927"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Алтайский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4063511"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Альметьевский государственный технологический университет «Высшая школа нефти»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4064597"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Амурский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4071693"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Астраханский государственный медицинский Университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4071715"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Астраханский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4076922"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Балтийское высшее военно-морское училище имени Ф.Ф. Ушакова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4080163"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Башкирский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4080165"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Башкирский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4080166"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Башкирский государственный педагогический университет имени Мифтахетдина Акмуллы"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4081704"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Белгородский государственный аграрный университет имени В. Я. Горина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4081731"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Белгородский университет кооперации, экономики и права"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4087768"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Благовещенский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4095958"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Братский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4097524"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Брянский государственный инженерно-технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4097525"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Брянский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4097537"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Брянский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4097540"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Брянский государственный университет имени академика И. Г. Петровского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4112965"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Владивостокский государственный университет экономики и сервиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4114347"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия РХБЗ и инженерных войск"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4114348"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия РВСН имени Петра Великого"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4114349"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военная академия войсковой противовоздушной обороны Вооружённых Сил Российской Федерации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4114399"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военно-воздушная академия имени профессора Н. Е. Жуковского и Ю. А. Гагарина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4114415"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Военно-дипломатическая академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4122967"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Волгоградский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4122971"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Волгоградский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4122974"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Волгоградский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4123106"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Волжский государственный университет водного транспорта"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4125386"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4125410"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4125415"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский государственный университет инженерных технологий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4130472"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Вятский государственный агротехнологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4141615"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Голицынский пограничный институт ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4144551"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Горно-Алтайский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4145910"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Горский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4146609"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственная морская академия имени адмирала С. О. Макарова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4146737"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный аграрный университет Северного Зауралья"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4146754"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный академический университет гуманитарных наук"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4146807"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Гатчинский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4146868"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный морской университет имени адмирала Ф. Ф. Ушакова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4146979"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный университет по землеустройству"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4152027"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Гуманитарный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4153921"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дагестанский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4153922"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дагестанский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4153929"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дагестанский государственный университет народного хозяйства"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4153934"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дагестанский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4153935"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дагестанский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4154233"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дальневосточный государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4154234"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дальневосточный государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4154235"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дальневосточный государственный технический рыбохозяйственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4154244"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дальневосточный государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4166430"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Донской государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4174759"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Елецкий государственный университет имени И. А. Бунина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4182332"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Забайкальский государственный гуманитарно-педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4186375"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Заочный народный университет искусств (Москва)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4196665"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ивановский государственный энергетический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4196666"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ивановский государственный химико-технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4196668"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ивановский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4198178"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Удмуртский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4198184"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ижевский государственный технический университет имени М. Т. Калашникова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4201594"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Институт международных связей"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4201828"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Институт экономики, управления и права (Казань)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4203305"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Иркутский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4203306"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Иркутский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4206599"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кабардино-Балкарский государственный университет имени Х. М. Бербекова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4207793"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский государственный энергетический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4207815"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский национальный исследовательский технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4207816"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский национальный исследовательский технический университет имени А. Н. Туполева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4207847"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанское высшее танковое командное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4207865"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанское суворовское военное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4209553"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Калининградский пограничный институт ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4210420"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Калужский государственный университет имени К. Э. Циолковского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4211795"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Камчатский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4219236"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кемеровский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4219248"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кемеровское военно-пехотное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4221651"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кировский лесопромышленный колледж"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4230202"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Комсомольский-на-Амуре государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4239242"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Красноярский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4239243"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Красноярский государственный медицинский университет имени профессора В. Ф. Войно-Ясенецкого"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4239244"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Красноярский государственный педагогический университет им. В. П. Астафьева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4243511"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кубанский государственный университет физической культуры, спорта и туризма"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4243512"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кубанский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4243514"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кубанский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4243515"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кубанский государственный технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4244744"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Кузбасский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4248071"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Курганский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4248858"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Курский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4258144"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ленинградский государственный университет имени А. С. Пушкина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4262481"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Липецкий государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4262483"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Липецкий государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4267921"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Луганский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4273359"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный гуманитарно-технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4288333"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Международный Восточно-Европейский Университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4288589"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский международный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4297700"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Михайловская военная артиллерийская академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4298331"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Мичуринский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4302548"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Мордовский государственный педагогический университет имени М. Е. Евсевьева"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4302550"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Национальный исследовательский Мордовский государственный университет имени Н. П. Огарёва"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4303364"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Морской государственный университет имени адмирала Г.И. Невельского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4303876"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московская высшая школа социальных и экономических наук"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4303895"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный юридический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304031"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский автомобильно-дорожный государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304063"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский городской педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304064"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный психолого-педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304067"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный агроинженерный университет имени В. П. Горячкина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304082"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "МГМСУ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304083"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский политехнический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304086"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Государственный университет просвещения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304092"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный технический университет гражданской авиации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304094"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный технологический университет «Станкин»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304097"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный университет имени А. Н. Косыгина (Технологии. Дизайн. Искусство)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304100"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский биотехнологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304104"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный университет природообустройства"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304106"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный университет технологий и управления"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304107"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Институт тонких химических технологий имени М. В. Ломоносова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304238"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский пограничный институт ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304299"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "МТУСИ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304319"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский финансово-промышленный университет «Синергия»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4304386"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московское высшее военное командное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4314683"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нахимовское военно-морское училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4314989"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Национальный государственный университет физической культуры, спорта и здоровья имени П. Ф. Лесгафта"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4315005"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Национальный исследовательский технологический университет «МИСиС»"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4318615"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нижегородская академия МВД РФ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4318620"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Приволжский исследовательский медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4318648"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нижегородский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4318649"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нижегородский государственный лингвистический университет им. Н. А. Добролюбова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4318650"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Мининский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4318744"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нижневартовский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325439"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный университет водного транспорта"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325440"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный университет архитектуры, дизайна и искусств имени А.Д.Крячкова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325459"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный университет инженерии и биотехнологий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325460"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325461"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325464"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирский государственный университет экономики и управления"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325492"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирское военно-пехотное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4325494"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новосибирское высшее военное командное училище"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4326217"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Новочеркасское высшее военное командное училище связи"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4334698"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омская академия МВД России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4334699"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4334723"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Омский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4336188"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Оренбургский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4336193"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Оренбургский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4336880"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Орловский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4348462"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пензенский государственный технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4348482"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пензенский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4348484"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пензенский государственный университет архитектуры и строительства"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4351496"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пермский государственный медицинский университет им. академика Е.А. Вагнера"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4351497"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пермская государственная сельскохозяйственная академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4351539"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пермский педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4352907"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северный (Арктический) федеральный университет имени М. В. Ломоносова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4366448"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Самарский государственный социально-педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4366451"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Поволжский государственный университет сервиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4366452"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Поволжский государственный университет телекоммуникаций и информатики"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4366456"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Поволжский государственный технологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4376232"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Православный Свято-Тихоновский гуманитарный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4377625"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Приамурский государственный университет имени Шолом-Алейхема"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4385796"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пятигорский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4397991"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Всероссийский государственный университет юстиции"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398054"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный университет народного хозяйства"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398063"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный геологоразведочный университет имени Серго Орджоникидзе"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398064"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный гидрометеорологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398067"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный профессионально-педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398072"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный университет физической культуры, спорта, молодёжи и туризма"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398087"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский исламский институт (Казань)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398096"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский международный олимпийский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398106"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский новый университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398112"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский православный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398135"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский университет кооперации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398493"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ростовский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398494"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ростовский государственный строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398496"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ростовский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4398497"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ростовский государственный экономический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4401554"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Рыбинский государственный авиационный технический университет имени П. А. Соловьёва"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4402649"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Рязанский государственный радиотехнический университет имени В.Ф. Уткина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4402655"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Рязанский государственный университет имени С.А. Есенина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4406401"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Самарский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4406404"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Приволжский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4406405"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Самарский государственный экономический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4406409"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Самарский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407665"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный химико-фармацевтический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407686"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский военно-морской институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407693"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный морской технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407695"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный технологический университет растительных полимеров"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407700"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный университет гражданской авиации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407701"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный университет технологии и дизайна"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407703"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский гуманитарный университет профсоюзов"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407705"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный университет телекоммуникаций имени проф. М. А. Бонч-Бруевича"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407708"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный электротехнический университет «ЛЭТИ» им. В.И.Ульянова (Ленина)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407719"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский институт экономики, культуры и делового администрирования"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4407744"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский университет технологий управления и экономики"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4408455"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Саратовский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4408456"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Саратовский государственный университет генетики, биотехнологии и инженерии имени Н.И. Вавилова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4408459"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Саратовский государственный социально-экономический университет Российского экономического университета имени Г. В. Плеханова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4412318"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северный государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4412445"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Восточный государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4412476"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Западный государственный заочный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4412491"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Кавказский федеральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4412511"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Осетинский государственный университет имени К. Л. Хетагурова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418232"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный университет геосистем и технологий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418236"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный автомобильно-дорожный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418282"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный университет путей сообщения"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418283"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный университет телекоммуникаций и информатики"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418285"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный индустриальный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418290"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский государственный университет физической культуры и спорта"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4418318"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский университет потребительской кооперации"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4424975"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Смоленский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4439013"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ставропольская государственная медицинская академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4439026"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ставропольский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4439029"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ставропольский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4446468"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сургутский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4446469"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сургутский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4450873"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тамбовский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4450874"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тамбовский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4453264"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тверской государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4453265"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тверской государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4458747"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тихоокеанский военно-морской институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4460386"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Томский государственный университет систем управления и радиоэлектроники"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4465237"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тульский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4467479"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тюменский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4467497"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Тюменский государственный архитектурно-строительный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4475180"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ульяновский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476708"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476709"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральская государственная сельскохозяйственная академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476714"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный юридический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476741"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский финансово-юридический институт"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476752"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный лесотехнический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476754"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476757"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский государственный университет физической культуры"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476765"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский институт экономики, управления и права"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4476790"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Уральский технический институт связи и информатики"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4479221"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ухтинский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4494355"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Хабаровский пограничный институт ФСБ России"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4497356"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Херсонский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4508686"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Южно-Уральский государственный аграрный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4516673"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Забайкальский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4533671"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Юго-Западный государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4533707"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Югорский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4534008"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Южно-Уральский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4537262"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Арктический государственный агротехнологический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4538824"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ярославский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4538869"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ярославский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4538874"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ярославский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4761983"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ангарский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4773809"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Казанский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4874546"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Байкальский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q492766"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Нижегородский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52847904"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Кавказская государственная академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5329352"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "ФГБОУ ВПО Восточно-Сибирский государственный университет технологий и управления"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55657279"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Болгарская исламская академия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56173858"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ивановский государственный политехнический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58527643"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Татарская высшая коммунистическая сельскохозяйственная школа"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q605825"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Воронежский государственный лесотехнический университет имени Г.Ф. Морозова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60829463"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Саратовское высшее военное командное Краснознаменное училище внутренних войск МВД СССР имени Ф. Э. Дзержинского"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61931372"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Крымский университет культуры, искусств и туризма"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q652280"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Калининградский государственный технический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q670649"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Иркутский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q689800"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Пермский национальный исследовательский политехнический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q702303"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Дальневосточный федеральный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7090782"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский юридический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7370051"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ростовский государственный медицинский университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7381992"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский государственный университет правосудия"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q742494"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Томский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q74527860"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Северо-Западный государственный медицинский университет имени И. И. Мечникова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7507002"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Сибирский институт бизнеса и информационных технологий"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q779992"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Алтайский государственный педагогический университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q805777"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Балтийский федеральный университет имени Иммануила Канта"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q839669"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский университет дружбы народов"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q902189"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Удмуртский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90902449"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Университет Сириус"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q929378"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Европейский университет в Санкт-Петербурге"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97119369"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Российский исламский университет (Грозный)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q982376"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Ульяновский государственный педагогический университет имени И. Н. Ульянова"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13164"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Московский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q27621"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Санкт-Петербургский государственный университет"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56837"
+      },
+      "name" : {
+        "xml:lang" : "ru",
+        "type" : "literal",
+        "value" : "Национальный исследовательский ядерный университет «МИФИ»"
+      }
+    } ]
+  }
+}

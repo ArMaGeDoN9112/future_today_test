@@ -1,0 +1,4 @@
+# Сохраняем байты исходных выгрузок и неизменяемых снимков для SHA-256 и повторной подготовки.
+catalogs/sources/*.csv -text whitespace=cr-at-eol
+catalogs/sources/*.json -text whitespace=cr-at-eol
+catalogs/snapshots/*.json -text
