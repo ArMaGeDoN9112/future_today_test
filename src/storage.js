@@ -7,7 +7,8 @@ const path = resolve('data/forms.sqlite');
 export const database = new Database(path, { timeout: 1000 });
 chmodSync(path, 0o600);
 database.pragma('foreign_keys = ON');
-database.transaction(() => database.exec(`
+database.transaction(() => {
+  database.exec(`
   CREATE TABLE IF NOT EXISTS forms (
     id TEXT PRIMARY KEY NOT NULL,
     title TEXT NOT NULL,
@@ -42,7 +43,12 @@ database.transaction(() => database.exec(`
     fieldId TEXT NOT NULL DEFAULT '',
     PRIMARY KEY (attemptId, type, fieldId)
   );
-`)).immediate();
+`);
+  const columns = /** @type {{name: string}[]} */ (database.pragma('table_info(responses)'));
+  if (!columns.some(column => column.name === 'viewed')) {
+    database.exec('ALTER TABLE responses ADD COLUMN viewed INTEGER NOT NULL DEFAULT 0 CHECK (viewed IN (0, 1))');
+  }
+}).immediate();
 
 /** @param {unknown} row @returns {import('./server.js').Form} */
 export function readForm(row) {
@@ -52,7 +58,7 @@ export function readForm(row) {
 
 /** @param {unknown} row @returns {import('./server.js').FormResponse} */
 export function readResponse(row) {
-  const response = /** @type {Omit<import('./server.js').FormResponse, 'answers' | 'attemptId'> & {answers: string, attemptId: string | null}} */ (row);
+  const response = /** @type {Omit<import('./server.js').FormResponse, 'answers' | 'attemptId' | 'viewed'> & {answers: string, attemptId: string | null, viewed: number}} */ (row);
   const { attemptId, ...rest } = response;
-  return { ...rest, ...(attemptId === null ? {} : { attemptId }), answers: JSON.parse(response.answers) };
+  return { ...rest, ...(attemptId === null ? {} : { attemptId }), viewed: Boolean(response.viewed), answers: JSON.parse(response.answers) };
 }

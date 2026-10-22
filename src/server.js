@@ -6,7 +6,7 @@ import { database, readForm, readResponse } from './storage.js';
 
 /** @typedef {{id: string, type: string, label: string, required: boolean, options?: string[]}} Field */
 /** @typedef {{id: string, title: string, fields: Field[], status: 'draft' | 'published' | 'closed', publicUrl: string | null}} Form */
-/** @typedef {{id: string, formId: string, attemptId?: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | string[] | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
+/** @typedef {{id: string, formId: string, attemptId?: string, submittedAt: string, viewed: boolean, catalogVersion: string, answers: Record<string, string | string[] | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
 /** @typedef {{id: string, formId: string, createdAt: string, startedAt: string | null, lastActiveAt: string, lastFieldId: string | null}} Attempt */
 /** @typedef {'change' | 'focus' | 'activity' | 'invalid_format' | 'required_missing' | 'search_empty' | 'catalog_error' | 'submit' | 'validation_failed' | 'request_failed'} EventType */
 const fieldIssues = ['invalid_format', 'required_missing', 'search_empty', 'catalog_error'];
@@ -170,11 +170,12 @@ const server = createServer(async (request, response) => {
     }
     const catalogMatch = path.match(/^\/api\/catalogs\/(cities|universities|study-directions|study-courses)(?:\/([^/]+))?$/);
     const publicMatch = path.match(/^\/forms\/([^/]+)(?:\/(responses|attempts)(?:\/([^/]+)\/(events))?)?$/);
-    const match = path.match(/^\/api\/forms\/([^/]+)(?:\/(publish|close|reopen|responses|analytics))?$/);
+    const match = path.match(/^\/api\/forms\/([^/]+)(?:\/(publish|close|reopen|responses|analytics)(?:\/([^/]+))?)?$/);
+    if (match?.[3] && match[2] !== 'responses') throw new HttpError(404, 'Маршрут не найден.');
     if (publicMatch?.[3] && publicMatch[2] !== 'attempts') throw new HttpError(404, 'Маршрут не найден.');
     const input = (publicMatch?.[2] && request.method === 'POST') ||
       (path === '/api/forms' && request.method === 'POST') ||
-      (match && !match[2] && request.method === 'PATCH') ? await readBody(request) : undefined;
+      (match && (!match[2] || match[3]) && request.method === 'PATCH') ? await readBody(request) : undefined;
     const execute = () => {
       let result;
       let status = 200;
@@ -268,7 +269,7 @@ const server = createServer(async (request, response) => {
             result = readResponse(existing);
           } else {
             const accepted = { id: randomUUID(), formId: form.id, submittedAt: new Date(Date.now()).toISOString(),
-              ...(attempt ? { attemptId: attempt.id } : {}), catalogVersion, answers };
+              ...(attempt ? { attemptId: attempt.id } : {}), viewed: false, catalogVersion, answers };
             database.prepare('INSERT INTO responses (id, formId, attemptId, submittedAt, catalogVersion, answers) VALUES (?, ?, ?, ?, ?, ?)')
               .run(accepted.id, accepted.formId, attempt?.id ?? null, accepted.submittedAt, accepted.catalogVersion, JSON.stringify(accepted.answers));
             result = accepted;
@@ -298,9 +299,21 @@ const server = createServer(async (request, response) => {
             lastActiveFields: abandoned.map(attempt => ({ attemptId: attempt.id, fieldId: attempt.lastFieldId,
               label: form.fields.find(field => field.id === attempt.lastFieldId)?.label, lastActiveAt: attempt.lastActiveAt })) };
         } else if (match?.[2] === 'responses') {
-          if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
-          const items = database.prepare('SELECT * FROM responses WHERE formId = ? ORDER BY rowid').all(form.id).map(readResponse);
-          result = { formId: form.id, fields: form.fields, count: items.length, responses: items };
+          if (match[3]) {
+            if (request.method !== 'PATCH') throw new HttpError(405, 'Метод не поддерживается.');
+            const body = object(input);
+            if (typeof body.viewed !== 'boolean' || Object.keys(body).some(key => key !== 'viewed')) {
+              throw new HttpError(400, 'Передайте только viewed (boolean).');
+            }
+            const row = database.prepare('SELECT * FROM responses WHERE id = ? AND formId = ?').get(match[3], form.id);
+            if (!row) throw new HttpError(404, 'Отклик этой формы не найден.');
+            database.prepare('UPDATE responses SET viewed = ? WHERE id = ? AND formId = ?').run(Number(body.viewed), match[3], form.id);
+            result = { ...readResponse(row), viewed: body.viewed };
+          } else {
+            if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
+            const items = database.prepare('SELECT * FROM responses WHERE formId = ? ORDER BY rowid').all(form.id).map(readResponse);
+            result = { formId: form.id, fields: form.fields, count: items.length, responses: items };
+          }
         } else if (publicMatch) {
           if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
           result = form.status === 'closed' ? { ...form, message: 'Приём завершён' } : form;

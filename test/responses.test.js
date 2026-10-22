@@ -1,5 +1,6 @@
 import { blockWrites } from '../test-support/storage.js';
 import assert from 'node:assert/strict';
+import Database from 'better-sqlite3';
 import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { test } from 'node:test';
@@ -24,6 +25,41 @@ async function publish(app, fields) {
   assert.equal(result.status, 200);
   return result.body;
 }
+
+test('менеджер отмечает отклик просмотренным и непросмотренным с сохранением после перезапуска', async t => {
+  const fixture = await setup(t);
+  const form = await publish(fixture.app, []);
+  const other = await publish(fixture.app, []);
+  const first = (await fixture.app.request(`${form.publicUrl}/responses`, 'POST', { answers: {} })).body;
+  const second = (await fixture.app.request(`${form.publicUrl}/responses`, 'POST', { answers: {} })).body;
+  const path = `/api/forms/${form.id}/responses`;
+  const endpoint = `${path}/${first.id}`;
+  assert.equal(first.viewed, false);
+  await fixture.app.stop();
+  const database = new Database(resolve(fixture.cwd, 'data/forms.sqlite'));
+  try { database.exec('ALTER TABLE responses DROP COLUMN viewed'); }
+  finally { database.close(); }
+  await fixture.restart();
+  assert.deepEqual((await fixture.app.request(path)).body.responses, [first, second]);
+  assert.deepEqual(await fixture.app.request(endpoint, 'PATCH', { viewed: true }), {
+    status: 200, body: { ...first, viewed: true },
+  });
+  await fixture.restart();
+  assert.deepEqual((await fixture.app.request(path)).body.responses, [{ ...first, viewed: true }, second]);
+  await fixture.app.request(`/api/forms/${form.id}/close`, 'POST');
+  assert.deepEqual((await fixture.app.request(endpoint, 'PATCH', { viewed: false })).body, first);
+  for (const body of [{}, { viewed: 'true' }, { viewed: 1 }, { viewed: null }, { viewed: true, answers: {} }]) {
+    assert.equal((await fixture.app.request(endpoint, 'PATCH', body)).status, 400);
+  }
+  assert.equal((await fixture.app.request(`${path}/unknown`, 'PATCH', { viewed: true })).status, 404);
+  assert.equal((await fixture.app.request(`/api/forms/${other.id}/responses/${first.id}`, 'PATCH', { viewed: true })).status, 404);
+  assert.equal((await fixture.app.request(endpoint, 'POST', { viewed: true })).status, 405);
+  assert.deepEqual((await fixture.app.request(path)).body.responses, [first, second]);
+  const release = blockWrites(t, fixture.cwd);
+  assert.equal((await fixture.app.request(endpoint, 'PATCH', { viewed: true })).status, 500);
+  assert.deepEqual((await fixture.app.request(path)).body.responses, [first, second]);
+  release();
+});
 
 test('студент отправляет все типы ответов, менеджер читает их по исходным полям после перезапуска', async t => {
   const fixture = await setup(t);

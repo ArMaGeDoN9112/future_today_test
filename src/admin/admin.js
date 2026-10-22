@@ -349,10 +349,33 @@ async function publishedView(form) {
   for (const [index, response] of /** @type {FormResponse[]} */ (responses.responses).entries()) {
     const item = el('article');
     item.className = 'response-card';
-    item.append(el('h3', `Отклик ${index + 1} · ${new Date(response.submittedAt).toLocaleString('ru-RU')}`));
+    const title = el('h3', `Отклик ${index + 1} · ${new Date(response.submittedAt).toLocaleString('ru-RU')}`);
+    const header = el('div');
+    header.className = 'response-heading';
+    const viewed = el('input');
+    viewed.type = 'checkbox';
+    viewed.checked = response.viewed;
+    viewed.setAttribute('aria-label', `Отклик ${index + 1}: просмотрен`);
+    const caption = el('label', 'Просмотрен');
+    caption.prepend(viewed);
+    header.append(title, caption);
     const answers = el('dl');
+    answers.id = `response-${response.id}-answers`;
+    answers.hidden = response.viewed;
+    viewed.setAttribute('aria-controls', answers.id);
+    viewed.onchange = () => {
+      const checked = viewed.checked;
+      viewed.checked = response.viewed;
+      void run(async () => {
+        const updated = await api(`/api/forms/${form.id}/responses/${response.id}`, 'PATCH', { viewed: checked });
+        response.viewed = updated.viewed;
+        viewed.checked = response.viewed;
+        answers.hidden = response.viewed;
+        message.textContent = response.viewed ? 'Отклик отмечен просмотренным' : 'Отклик отмечен непросмотренным';
+      }, 'Сохранение отметки…');
+    };
     for (const field of form.fields) answers.append(el('dt', field.label), el('dd', answer(response.answers[field.id])));
-    item.append(answers);
+    item.append(header, answers);
     replies.append(item);
   }
   results.append(stats, replies);
