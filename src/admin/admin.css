@@ -38,6 +38,9 @@ legend { font-weight: 700; padding: 0 8px; }
 .field-issue-card { min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
 .field-issue-card h4 { margin: 0 0 8px; font-size: 1.125rem; overflow-wrap: anywhere; }
 .field-issue-card dl { margin: 0; }
+.unfinished-questions { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; }
+.unfinished-questions dt, .unfinished-questions dd { border-top: 1px solid var(--line); padding: 12px 0; }
+.unfinished-questions dd { margin: 0; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
 .issue-row { padding: 12px 0; color: var(--muted); }
 .issue-row + .issue-row { border-top: 1px solid #e8eef5; }
 .issue-row dt { font-size: .875rem; font-weight: 500; }

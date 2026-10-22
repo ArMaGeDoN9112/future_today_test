@@ -33,6 +33,8 @@ test('затруднения показывают только применим�
   page.setDefaultTimeout(5000);
   await page.goto(`${app.url}/admin#${draft.body.id}`);
   await page.getByRole('heading', { name: 'Затруднения по полям', exact: true }).waitFor();
+  const emptyUnfinished = page.getByRole('region', { name: 'Незавершённые заполнения по вопросам', exact: true });
+  assert.deepEqual(await emptyUnfinished.getByRole('definition').allTextContents(), fields.map(() => '0'));
   for (const [type, captions] of checks) {
     for (const required of [false, true]) {
       const expected = [...(required ? ['Обязательное поле не заполнено'] : []), ...captions];
@@ -130,9 +132,8 @@ test('публикация фиксирует содержание, управл
     assert.ok((await replies.innerText()).includes(text), text);
   }
   const unfinished = page.getByRole('region', { name: 'Незавершённые заполнения по вопросам', exact: true });
-  await unfinished.getByRole('heading', { name: `Вопрос 1: «${unsafe}»`, exact: true }).waitFor();
-  assert.ok((await unfinished.innerText()).includes('Заполнений без отправленного отклика: 1'));
-  assert.ok((await unfinished.innerText()).includes('Последняя активность:'));
+  assert.deepEqual(await unfinished.getByRole('term').allTextContents(), fields.map((field, index) => `Вопрос ${index + 1}: «${field.label}»`));
+  assert.deepEqual(await unfinished.getByRole('definition').allTextContents(), ['1', '0', '0', '0', '0', '0', '0', '0']);
   assert.ok(!(await page.locator('body').innerText()).includes(abandoned.id));
   await page.getByRole('heading', { name: 'Воронка отправки', exact: true }).waitFor();
   await page.getByRole('heading', { name: 'Затруднения по полям', exact: true }).waitFor();
@@ -148,12 +149,9 @@ test('публикация фиксирует содержание, управл
   await app.request(`${published.publicUrl}/attempts/${another.id}/events`, 'POST', { type: 'change', fieldId: 'name' });
   await writeFile(resolve(cwd, 'clock'), String(now + 60 * 60 * 1000));
   await page.getByRole('button', { name: 'Обновить отклики и аналитику', exact: true }).click();
-  await unfinished.getByText('Заполнений без отправленного отклика: 2', { exact: true }).waitFor();
-  assert.equal(await unfinished.getByRole('article').count(), 2);
-  await unfinished.getByRole('heading', { name: 'Вопрос 3: «Почта»', exact: true }).waitFor();
-  const nameGroup = unfinished.getByRole('article').filter({ has: page.getByRole('heading', { name: `Вопрос 1: «${unsafe}»`, exact: true }) });
-  const latest = await page.evaluate(value => new Date(value).toLocaleString('ru-RU'), now + 30 * 60 * 1000);
-  assert.ok((await nameGroup.innerText()).includes(`Последняя активность: ${latest}`));
+  await unfinished.getByRole('definition').filter({ hasText: /^2$/ }).waitFor();
+  assert.deepEqual(await unfinished.getByRole('term').allTextContents(), fields.map((field, index) => `Вопрос ${index + 1}: «${field.label}»`));
+  assert.deepEqual(await unfinished.getByRole('definition').allTextContents(), ['2', '0', '1', '0', '0', '0', '0', '0']);
   for (const id of [abandoned.id, another.id, active.id]) assert.ok(!(await unfinished.innerText()).includes(id));
   assert.equal(await unfinished.locator('img').count(), 0);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);

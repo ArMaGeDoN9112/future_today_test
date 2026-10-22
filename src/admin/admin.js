@@ -367,27 +367,19 @@ async function publishedView(form) {
   const unfinished = el('section');
   unfinished.setAttribute('aria-label', 'Незавершённые заполнения по вопросам');
   unfinished.append(el('h3', 'Незавершённые заполнения по вопросам'));
-  unfinished.append(el('p', 'Отклик не отправлен, активности нет 30 минут или дольше. Ниже — последние вопросы, с которыми взаимодействовали при заполнении.'));
+  unfinished.append(el('p', 'Показано, на каком вопросе осталось заполнение без отправленного отклика после 30 минут бездействия.'));
   const groups = new Map();
   for (const field of analytics.lastActiveFields) {
-    const group = groups.get(field.fieldId);
-    if (group) {
-      group.count += 1;
-      if (field.lastActiveAt > group.lastActiveAt) group.lastActiveAt = field.lastActiveAt;
-    } else groups.set(field.fieldId, { ...field, count: 1 });
+    groups.set(field.fieldId, (groups.get(field.fieldId) ?? 0) + 1);
   }
   if (!groups.size) unfinished.append(el('p', 'Незавершённых заполнений нет.'));
-  const questions = el('div');
-  questions.className = 'field-issues';
-  for (const [fieldId, group] of groups) {
-    const index = form.fields.findIndex(field => field.id === fieldId);
-    const item = el('article');
-    item.className = 'field-issue-card';
-    item.append(el('h4', index < 0 ? 'Последний вопрос неизвестен' : `Вопрос ${index + 1}: «${form.fields[index].label}»`));
-    item.append(el('p', `Заполнений без отправленного отклика: ${group.count}`));
-    item.append(el('p', `Последняя активность: ${new Date(group.lastActiveAt).toLocaleString('ru-RU')}`));
-    questions.append(item);
+  const questions = el('dl');
+  questions.className = 'unfinished-questions';
+  for (const [index, field] of form.fields.entries()) {
+    questions.append(el('dt', `Вопрос ${index + 1}: «${field.label}»`), el('dd', String(groups.get(field.id) ?? 0)));
   }
+  if (groups.has(null)) questions.append(el('dt', 'Последний вопрос неизвестен'), el('dd', String(groups.get(null))));
+  if (!form.fields.length && !groups.size) unfinished.append(el('p', 'В форме нет вопросов.'));
   unfinished.append(questions);
   stats.append(unfinished);
   const replies = el('section');
