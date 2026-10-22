@@ -6,10 +6,16 @@ import { catalogVersion, getCatalogEntry, searchCatalog } from './catalogs.js';
 
 /** @typedef {{id: string, type: string, label: string, required: boolean, options?: string[]}} Field */
 /** @typedef {{id: string, title: string, fields: Field[], status: 'draft' | 'published' | 'closed', publicUrl: string | null}} Form */
+/** @typedef {{id: string, formId: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
 /** @type {Form[]} */
 let forms = [];
+/** @type {FormResponse[]} */
+let responses = [];
 const dataDirectory = resolve('data');
 const storagePath = resolve(dataDirectory, 'forms.json');
+const responsesPath = resolve(dataDirectory, 'responses.json');
+/** @type {Record<string, import('./catalogs.js').CatalogKind>} */
+const fieldCatalogs = { city: 'cities', university: 'universities', study_direction: 'study-directions', study_level_course: 'study-courses' };
 
 class HttpError extends Error {
   /** @param {number} status @param {string} message */
@@ -85,11 +91,46 @@ try {
   if (/** @type {NodeJS.ErrnoException} */ (error).code !== 'ENOENT') throw error;
 }
 
-/** @param {Form[]} next */
-function save(next) {
+try {
+  const saved = JSON.parse(readFileSync(responsesPath, 'utf8'));
+  if (!Array.isArray(saved)) throw new Error('Хранилище должно содержать массив откликов.');
+  const ids = new Set();
+  for (const response of saved) {
+    object(response);
+    const form = forms.find(form => form.id === response.formId && form.status !== 'draft');
+    if (!nonempty(response.id) || ids.has(response.id) || !form || !nonempty(response.catalogVersion) ||
+        typeof response.submittedAt !== 'string' || !Number.isFinite(Date.parse(response.submittedAt))) {
+      throw new Error('Некорректная структура сохранённого отклика.');
+    }
+    const answers = object(response.answers);
+    if (Object.keys(answers).some(id => !form.fields.some(field => field.id === id))) {
+      throw new Error('Сохранённый ответ не соответствует полям формы.');
+    }
+    for (const field of form.fields) {
+      if (!Object.hasOwn(answers, field.id)) {
+        if (field.required) throw new Error('В сохранённом отклике отсутствует обязательный ответ.');
+        continue;
+      }
+      const value = answers[field.id];
+      if (Object.hasOwn(fieldCatalogs, field.type)) {
+        const entry = object(value);
+        if (!nonempty(entry.id) || !nonempty(entry.name)) throw new Error('Повреждён сохранённый справочный ответ.');
+      } else if (typeof value !== 'string') {
+        throw new Error('Повреждён сохранённый текстовый ответ.');
+      }
+    }
+    ids.add(response.id);
+  }
+  responses = saved;
+} catch (error) {
+  if (/** @type {NodeJS.ErrnoException} */ (error).code !== 'ENOENT') throw error;
+}
+
+/** @param {string} path @param {Form[] | FormResponse[]} next */
+function save(path, next) {
   // shortcut: синхронный JSON рассчитан на один процесс и небольшой объём; при росте нужно транзакционное хранилище.
   mkdirSync(dataDirectory, { recursive: true });
-  const temporaryPath = `${storagePath}.${randomUUID()}.tmp`;
+  const temporaryPath = `${path}.${randomUUID()}.tmp`;
   try {
     const file = openSync(temporaryPath, 'wx', 0o600);
     try {
@@ -98,11 +139,54 @@ function save(next) {
     } finally {
       closeSync(file);
     }
-    renameSync(temporaryPath, storagePath);
-    forms = next;
+    renameSync(temporaryPath, path);
   } finally {
     rmSync(temporaryPath, { force: true });
   }
+}
+
+/** @param {Form} form @param {unknown} input @returns {FormResponse['answers']} */
+function validateAnswers(form, input) {
+  const body = object(input);
+  if (Object.keys(body).length !== 1 || !Object.hasOwn(body, 'answers')) {
+    throw new HttpError(400, 'Передайте только answers — объект ответов по id полей.');
+  }
+  const answers = object(body.answers);
+  if (Object.keys(answers).some(id => !form.fields.some(field => field.id === id))) {
+    throw new HttpError(400, 'Ответ содержит неизвестное поле.');
+  }
+  /** @type {FormResponse['answers']} */
+  const result = Object.create(null);
+  for (const field of form.fields) {
+    if (!Object.hasOwn(answers, field.id)) {
+      if (field.required) throw new HttpError(400, `Заполните обязательное поле «${field.label}».`);
+      continue;
+    }
+    const value = answers[field.id];
+    if (typeof value !== 'string' || !value.trim()) {
+      throw new HttpError(400, `Поле «${field.label}» должно содержать непустую строку.`);
+    }
+    if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      throw new HttpError(400, `Введите корректный email в поле «${field.label}».`);
+    }
+    if (field.type === 'single_choice' && !field.options?.includes(value)) {
+      throw new HttpError(400, `Выберите допустимый вариант поля «${field.label}».`);
+    }
+    let accepted = /** @type {string | Readonly<import('./catalogs.js').CatalogEntry>} */ (value);
+    if (Object.hasOwn(fieldCatalogs, field.type)) {
+      const entry = getCatalogEntry(fieldCatalogs[field.type], value);
+      if (!entry) throw new HttpError(400, `Выберите значение из справочника для поля «${field.label}».`);
+      accepted = entry;
+    }
+    result[field.id] = accepted;
+  }
+  const directions = form.fields.filter(field => field.type === 'study_direction').map(field => result[field.id]);
+  const courses = form.fields.filter(field => field.type === 'study_level_course').map(field => result[field.id]);
+  if (directions.some(direction => typeof direction === 'object' && courses.some(course =>
+    typeof course === 'object' && direction.level !== course.level))) {
+    throw new HttpError(400, 'Уровни направления и курса обучения должны совпадать.');
+  }
+  return result;
 }
 
 /** @param {import('node:http').IncomingMessage} request */
@@ -149,17 +233,34 @@ const server = createServer(async (request, response) => {
     } else if (path === '/api/forms' && request.method === 'POST') {
       const body = content(await readBody(request), false);
       const form = /** @type {Form} */ ({ id: randomUUID(), ...body, status: 'draft', publicUrl: null });
-      save([...forms, form]);
+      const next = [...forms, form];
+      save(storagePath, next);
+      forms = next;
       result = form;
       status = 201;
     } else {
-      const publicMatch = path.match(/^\/forms\/([^/]+)$/);
-      const match = path.match(/^\/api\/forms\/([^/]+)(?:\/(publish|close|reopen))?$/);
+      const publicMatch = path.match(/^\/forms\/([^/]+)(?:\/(responses))?$/);
+      const match = path.match(/^\/api\/forms\/([^/]+)(?:\/(publish|close|reopen|responses))?$/);
       if (!match && !publicMatch) throw new HttpError(404, 'Маршрут не найден.');
+      const input = publicMatch?.[2] && request.method === 'POST' ? await readBody(request) : undefined;
       const body = match && !match[2] && request.method === 'PATCH' ? content(await readBody(request), true) : undefined;
-      const form = forms.find(form => publicMatch ? form.publicUrl === path : form.id === match?.[1]);
+      const form = forms.find(form => publicMatch ? form.publicUrl === `/forms/${publicMatch[1]}` : form.id === match?.[1]);
       if (!form) throw new HttpError(404, 'Форма не найдена.');
-      if (publicMatch) {
+      if (publicMatch?.[2]) {
+        if (request.method !== 'POST') throw new HttpError(405, 'Метод не поддерживается.');
+        if (form.status !== 'published') throw new HttpError(409, 'Приём откликов недоступен.');
+        const accepted = { id: randomUUID(), formId: form.id, submittedAt: new Date().toISOString(),
+          catalogVersion, answers: validateAnswers(form, input) };
+        const next = [...responses, accepted];
+        save(responsesPath, next);
+        responses = next;
+        result = accepted;
+        status = 201;
+      } else if (match?.[2] === 'responses') {
+        if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
+        const items = responses.filter(response => response.formId === form.id);
+        result = { formId: form.id, fields: form.fields, count: items.length, responses: items };
+      } else if (publicMatch) {
         if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
         result = form.status === 'closed' ? { ...form, message: 'Приём завершён' } : form;
       } else if (!match?.[2] && request.method === 'GET') {
@@ -167,7 +268,9 @@ const server = createServer(async (request, response) => {
       } else if (body) {
         if (form.status !== 'draft') throw new HttpError(409, 'Содержание опубликованной формы нельзя изменять.');
         const updated = { ...form, ...body };
-        save(forms.map(item => item.id === form.id ? updated : item));
+        const next = forms.map(item => item.id === form.id ? updated : item);
+        save(storagePath, next);
+        forms = next;
         result = updated;
       } else if (match?.[2] && request.method === 'POST') {
         const action = match[2];
@@ -178,7 +281,9 @@ const server = createServer(async (request, response) => {
           status: /** @type {Form['status']} */ (action === 'close' ? 'closed' : 'published'),
           publicUrl: form.publicUrl ?? `/forms/${randomUUID()}`,
         };
-        save(forms.map(item => item.id === form.id ? updated : item));
+        const next = forms.map(item => item.id === form.id ? updated : item);
+        save(storagePath, next);
+        forms = next;
         result = updated;
       } else {
         throw new HttpError(405, 'Метод не поддерживается.');

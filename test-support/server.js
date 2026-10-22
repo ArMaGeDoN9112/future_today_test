@@ -4,8 +4,8 @@ import { resolve } from 'node:path';
 
 const serverPath = resolve('src/server.js');
 
-export async function start(cwd, nodeArgs = []) {
-  const child = spawn(process.execPath, [...nodeArgs, serverPath], {
+export async function start(cwd, nodeArgs = [], entrypoint = serverPath) {
+  const child = spawn(process.execPath, [...nodeArgs, entrypoint], {
     cwd, env: { ...process.env, PORT: '0' }, stdio: ['ignore', 'pipe', 'pipe'],
   });
   let errors = '';
