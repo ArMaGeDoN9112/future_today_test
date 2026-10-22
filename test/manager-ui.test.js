@@ -70,7 +70,11 @@ test('публикация фиксирует содержание, управл
   for (const text of [unsafe, 'Две строки\nОб опыте', 'student@example.com', 'Удалённо', city.name, university.name, direction.name, course.name]) {
     assert.ok((await replies.innerText()).includes(text), text);
   }
-  assert.ok((await page.locator('body').innerText()).includes(`Попытка ${abandoned.id}`));
+  const unfinished = page.getByRole('region', { name: 'Незавершённые заполнения по вопросам', exact: true });
+  await unfinished.getByRole('heading', { name: `Вопрос 1: «${unsafe}»`, exact: true }).waitFor();
+  assert.ok((await unfinished.innerText()).includes('Заполнений без отправленного отклика: 1'));
+  assert.ok((await unfinished.innerText()).includes('Последняя активность:'));
+  assert.ok(!(await page.locator('body').innerText()).includes(abandoned.id));
   await page.getByRole('heading', { name: 'Воронка отправки', exact: true }).waitFor();
   await page.getByRole('heading', { name: 'Затруднения по полям', exact: true }).waitFor();
   const universityIssues = page.getByRole('heading', { name: 'Вуз', exact: true }).locator('..');
@@ -79,6 +83,20 @@ test('публикация фиксирует содержание, управл
   assert.equal(await emptySearch.locator('.issue-bar > span').evaluate(node => node.style.width), '25%');
   assert.equal(await page.locator('img').count(), 0);
   assert.equal(await page.evaluate(() => window.executed), undefined);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+
+  const another = (await app.request(`${published.publicUrl}/attempts`, 'POST', {})).body;
+  await app.request(`${published.publicUrl}/attempts/${another.id}/events`, 'POST', { type: 'change', fieldId: 'name' });
+  await writeFile(resolve(cwd, 'clock'), String(now + 60 * 60 * 1000));
+  await page.getByRole('button', { name: 'Обновить отклики и аналитику', exact: true }).click();
+  await unfinished.getByText('Заполнений без отправленного отклика: 2', { exact: true }).waitFor();
+  assert.equal(await unfinished.getByRole('article').count(), 2);
+  await unfinished.getByRole('heading', { name: 'Вопрос 3: «Почта»', exact: true }).waitFor();
+  const nameGroup = unfinished.getByRole('article').filter({ has: page.getByRole('heading', { name: `Вопрос 1: «${unsafe}»`, exact: true }) });
+  const latest = await page.evaluate(value => new Date(value).toLocaleString('ru-RU'), now + 30 * 60 * 1000);
+  assert.ok((await nameGroup.innerText()).includes(`Последняя активность: ${latest}`));
+  for (const id of [abandoned.id, another.id, active.id]) assert.ok(!(await unfinished.innerText()).includes(id));
+  assert.equal(await unfinished.locator('img').count(), 0);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
 
   await page.getByRole('button', { name: 'Закрыть приём', exact: true }).click();

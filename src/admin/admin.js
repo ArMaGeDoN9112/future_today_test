@@ -338,10 +338,32 @@ async function publishedView(form) {
     issues.append(item);
   }
   stats.append(issues);
-  stats.append(el('h3', 'Последние активные поля'));
-  stats.append(el('p', 'Последнее активное поле показывает место остановки, а не установленную причину ухода.'));
-  if (!analytics.lastActiveFields.length) stats.append(el('p', 'Незавершённых заполнений нет.'));
-  for (const field of analytics.lastActiveFields) stats.append(el('p', `${field.label ?? 'Поле не определено'} — ${new Date(field.lastActiveAt).toLocaleString('ru-RU')} · Попытка ${field.attemptId}`));
+  const unfinished = el('section');
+  unfinished.setAttribute('aria-label', 'Незавершённые заполнения по вопросам');
+  unfinished.append(el('h3', 'Незавершённые заполнения по вопросам'));
+  unfinished.append(el('p', 'Отклик не отправлен, активности нет 30 минут или дольше. Ниже — последние вопросы, с которыми взаимодействовали при заполнении.'));
+  const groups = new Map();
+  for (const field of analytics.lastActiveFields) {
+    const group = groups.get(field.fieldId);
+    if (group) {
+      group.count += 1;
+      if (field.lastActiveAt > group.lastActiveAt) group.lastActiveAt = field.lastActiveAt;
+    } else groups.set(field.fieldId, { ...field, count: 1 });
+  }
+  if (!groups.size) unfinished.append(el('p', 'Незавершённых заполнений нет.'));
+  const questions = el('div');
+  questions.className = 'field-issues';
+  for (const [fieldId, group] of groups) {
+    const index = form.fields.findIndex(field => field.id === fieldId);
+    const item = el('article');
+    item.className = 'field-issue-card';
+    item.append(el('h4', index < 0 ? 'Последний вопрос неизвестен' : `Вопрос ${index + 1}: «${form.fields[index].label}»`));
+    item.append(el('p', `Заполнений без отправленного отклика: ${group.count}`));
+    item.append(el('p', `Последняя активность: ${new Date(group.lastActiveAt).toLocaleString('ru-RU')}`));
+    questions.append(item);
+  }
+  unfinished.append(questions);
+  stats.append(unfinished);
   const replies = el('section');
   replies.setAttribute('aria-label', `Отклики (${responses.count})`);
   replies.append(el('h2', `Отклики (${responses.count})`));
