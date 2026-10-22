@@ -123,6 +123,7 @@ function render(form, courses) {
       item.search = search;
       const choices = /** @type {HTMLSelectElement} */ (control);
       choices.size = 4;
+      choices.hidden = true;
       choices.setAttribute('aria-label', `Варианты: ${field.label}`);
       const hint = el('p', 'Введите название и выберите вариант из списка.');
       hint.className = 'hint';
@@ -138,6 +139,8 @@ function render(form, courses) {
         clearTimeout(timer);
         const current = ++revision;
         item.selected = undefined;
+        entries = [];
+        choices.hidden = true;
         choices.replaceChildren(new Option('Выберите вариант', ''));
         updateCourses();
         if (!search.value.trim()) { hint.textContent = 'Введите название и выберите вариант из списка.'; return; }
@@ -149,6 +152,7 @@ function render(form, courses) {
             entries = result.items;
             // shortcut: первые 50 совпадений; если уточнения поиска недостаточно, добавить страницы результатов.
             choices.append(...entries.slice(0, 50).map(entry => new Option(entryLabel(entry), entry.id)));
+            choices.hidden = entries.length === 0;
             hint.textContent = !entries.length ? 'Нет нужного варианта? Свяжитесь с организатором' :
               entries.length > 50 ? 'Показаны первые 50 вариантов. Уточните поиск.' : 'Выберите вариант из списка.';
           } catch (cause) {
@@ -156,11 +160,27 @@ function render(form, courses) {
           }
         }, 200);
       };
-      choices.onchange = () => {
+      let navigating = false;
+      const choose = () => {
         item.selected = entries.find(entry => entry.id === choices.value);
-        if (item.selected) hint.textContent = `Выбрано: ${entryLabel(item.selected)}`;
+        if (item.selected) {
+          search.value = entryLabel(item.selected);
+          hint.textContent = '';
+          if (!navigating) {
+            choices.hidden = true;
+            search.focus();
+          }
+        }
         updateCourses();
       };
+      choices.onchange = choose;
+      choices.onclick = choose;
+      choices.onkeydown = event => {
+        navigating = event.key !== 'Enter';
+        if (!navigating) { event.preventDefault(); choose(); }
+      };
+      choices.onkeyup = () => { navigating = false; };
+      choices.onpointerdown = () => { navigating = false; };
     }
     panel.append(group);
     controls.push(item);

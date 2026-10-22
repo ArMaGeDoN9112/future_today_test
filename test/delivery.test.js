@@ -52,6 +52,8 @@ test('менеджер и студент проходят полный цикл;
       await student.keyboard.press('Home');
       await student.keyboard.press('ArrowDown');
       assert.notEqual(await options.inputValue(), '', label);
+      await student.keyboard.press('Enter');
+      assert.equal(await options.count(), 0);
     }
     const course = student.getByLabel('Курс ·', { exact: false });
     await course.getByRole('option', { name: 'Бакалавриат — 4 курс и выше (4+)', exact: true }).waitFor({ state: 'attached' });

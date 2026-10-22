@@ -54,6 +54,76 @@ test('студент исправляет ошибки, отправляет о�
   assert.notEqual(replies.responses[0].attemptId, replies.responses[1].attemptId);
 });
 
+for (const [type, label, catalog, query] of [
+  ['city', 'Город', 'cities', 'Моск'],
+  ['university', 'Вуз', 'universities', 'Московский'],
+  ['study_direction', 'Направление', 'study-directions', '09.04'],
+]) {
+  test(`${label}: подсказки открываются по запросу, выбор заменяет текст, изменение и очистка сбрасывают выбор`, { timeout: 30000 }, async t => {
+    const { app, form, page } = await setup(t, [{ id: 'reference', type, label, required: false }]);
+    const entry = (await app.request(`/api/catalogs/${catalog}?q=${encodeURIComponent(query)}`)).body.items[0];
+    const fullName = type === 'city' ? `${entry.name} · ${entry.region}` :
+      type === 'study_direction' ? `${entry.code} · ${entry.name} · Магистратура` : entry.name;
+    await page.goto(`${app.url}${form.publicUrl}`);
+    const search = page.getByLabel(`${label} ·`, { exact: false });
+    const choices = page.getByRole('listbox', { name: `Варианты: ${label}`, exact: true });
+    await search.waitFor();
+    assert.equal(await choices.count(), 0);
+    await search.fill('   ');
+    assert.equal(await choices.count(), 0);
+    await search.fill(query);
+    await choices.getByRole('option', { name: fullName, exact: true }).waitFor();
+    await choices.selectOption(entry.id);
+    assert.equal(await search.inputValue(), fullName);
+    assert.equal(await page.getByText(/^Выбрано:/).count(), 0);
+    assert.equal(await choices.count(), 0);
+    assert.equal(await search.isVisible(), true);
+
+    await search.fill('НетТакогоВарианта');
+    await page.getByText('Нет нужного варианта? Свяжитесь с организатором', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Отправить отклик', exact: true }).click();
+    await page.getByText('Выберите значение из справочника.', { exact: true }).waitFor();
+    assert.equal((await app.request(`/api/forms/${form.id}/responses`)).body.count, 0);
+
+    await search.fill(query);
+    await choices.getByRole('option', { name: fullName, exact: true }).waitFor();
+    await choices.focus();
+    await page.keyboard.press('Home');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+    assert.equal(await choices.isVisible(), true);
+    assert.notEqual(await choices.inputValue(), entry.id);
+    await page.keyboard.press('ArrowUp');
+    await page.keyboard.press('Enter');
+    assert.equal(await search.inputValue(), fullName);
+    assert.equal(await choices.count(), 0);
+    await search.fill(query);
+    await choices.getByRole('option', { name: fullName, exact: true }).waitFor();
+    await choices.focus();
+    await page.keyboard.press('Home');
+    await page.keyboard.press('ArrowDown');
+    await choices.getByRole('option', { name: fullName, exact: true }).click();
+    assert.equal(await choices.count(), 0);
+    await search.fill('');
+    assert.equal(await choices.count(), 0);
+    await page.getByRole('button', { name: 'Отправить отклик', exact: true }).click();
+    await page.getByRole('heading', { name: 'Отклик отправлен', exact: true }).waitFor();
+    let replies = (await app.request(`/api/forms/${form.id}/responses`)).body;
+    assert.deepEqual(replies.responses[0].answers, {});
+
+    await page.getByRole('button', { name: 'Заполнить ещё раз', exact: true }).click();
+    await search.fill(query);
+    await choices.getByRole('option', { name: fullName, exact: true }).waitFor();
+    await choices.selectOption(entry.id);
+    const sent = page.waitForRequest(request => request.url().endsWith('/responses') && request.method() === 'POST');
+    await page.getByRole('button', { name: 'Отправить отклик', exact: true }).click();
+    assert.deepEqual((await sent).postDataJSON().answers, { reference: entry.id });
+    await page.getByRole('heading', { name: 'Отклик отправлен', exact: true }).waitFor();
+    replies = (await app.request(`/api/forms/${form.id}/responses`)).body;
+    assert.equal(replies.responses.find(response => response.answers.reference)?.answers.reference.id, entry.id);
+  });
+}
+
 test('поиск справочников доступен с клавиатуры, курс соответствует направлению', { timeout: 30000 }, async t => {
   const { app, form, page } = await setup(t, [
     { id: 'city', type: 'city', label: 'Город', required: true },
@@ -79,7 +149,8 @@ test('поиск справочников доступен с клавиатур
   await cityOptions.focus();
   await page.keyboard.press('Home');
   await page.keyboard.press('ArrowDown');
-  assert.equal(await cityOptions.inputValue(), city.id);
+  await page.keyboard.press('Enter');
+  assert.equal(await page.getByLabel('Город ·', { exact: false }).inputValue(), `${city.name} · ${city.region}`);
   const bachelor = (await app.request('/api/catalogs/study-courses')).body.items.find(item => item.name === 'Бакалавриат — 4 курс и выше (4+)');
   await courses.selectOption(bachelor.id);
   const direction = (await app.request('/api/catalogs/study-directions?q=09.04.01')).body.items[0];
