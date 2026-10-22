@@ -6,14 +6,18 @@ import { catalogVersion, getCatalogEntry, searchCatalog } from './catalogs.js';
 
 /** @typedef {{id: string, type: string, label: string, required: boolean, options?: string[]}} Field */
 /** @typedef {{id: string, title: string, fields: Field[], status: 'draft' | 'published' | 'closed', publicUrl: string | null}} Form */
-/** @typedef {{id: string, formId: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
+/** @typedef {{id: string, formId: string, attemptId?: string, submittedAt: string, catalogVersion: string, answers: Record<string, string | Readonly<import('./catalogs.js').CatalogEntry>>}} FormResponse */
+/** @typedef {{id: string, formId: string, createdAt: string, startedAt: string | null, lastActiveAt: string, lastFieldId: string | null}} Attempt */
 /** @type {Form[]} */
 let forms = [];
 /** @type {FormResponse[]} */
 let responses = [];
+/** @type {Attempt[]} */
+let attempts = [];
 const dataDirectory = resolve('data');
 const storagePath = resolve(dataDirectory, 'forms.json');
 const responsesPath = resolve(dataDirectory, 'responses.json');
+const attemptsPath = resolve(dataDirectory, 'attempts.json');
 /** @type {Record<string, import('./catalogs.js').CatalogKind>} */
 const fieldCatalogs = { city: 'cities', university: 'universities', study_direction: 'study-directions', study_level_course: 'study-courses' };
 
@@ -126,7 +130,45 @@ try {
   if (/** @type {NodeJS.ErrnoException} */ (error).code !== 'ENOENT') throw error;
 }
 
-/** @param {string} path @param {Form[] | FormResponse[]} next */
+try {
+  const saved = JSON.parse(readFileSync(attemptsPath, 'utf8'));
+  if (!Array.isArray(saved)) throw new Error('Хранилище должно содержать массив попыток.');
+  const ids = new Set();
+  for (const attempt of saved) {
+    object(attempt);
+    const form = forms.find(form => form.id === attempt.formId && form.status !== 'draft');
+    if (!nonempty(attempt.id) || ids.has(attempt.id) || !form ||
+        ![attempt.createdAt, attempt.lastActiveAt].every(value => typeof value === 'string' && Number.isFinite(Date.parse(value))) ||
+        (attempt.startedAt !== null && (typeof attempt.startedAt !== 'string' || !Number.isFinite(Date.parse(attempt.startedAt)))) ||
+        (attempt.lastFieldId !== null && !form.fields.some(field => field.id === attempt.lastFieldId))) {
+      throw new Error('Некорректная структура сохранённой попытки.');
+    }
+    ids.add(attempt.id);
+  }
+  attempts = saved;
+} catch (error) {
+  if (/** @type {NodeJS.ErrnoException} */ (error).code !== 'ENOENT') throw error;
+}
+
+const completedIds = new Set();
+for (const response of responses) {
+  if (!Object.hasOwn(response, 'attemptId')) continue;
+  if (!nonempty(response.attemptId) || completedIds.has(response.attemptId) ||
+      !attempts.some(attempt => attempt.id === response.attemptId && attempt.formId === response.formId)) {
+    throw new Error('Некорректная связь сохранённого отклика с попыткой.');
+  }
+  completedIds.add(response.attemptId);
+}
+
+/** @param {Form} form @param {unknown} id */
+function findAttempt(form, id) {
+  if (!nonempty(id)) throw new HttpError(400, 'Передайте непустой attemptId.');
+  const attempt = attempts.find(attempt => attempt.id === id && attempt.formId === form.id);
+  if (!attempt) throw new HttpError(404, 'Попытка этой формы не найдена.');
+  return attempt;
+}
+
+/** @param {string} path @param {Form[] | FormResponse[] | Attempt[]} next */
 function save(path, next) {
   // shortcut: синхронный JSON рассчитан на один процесс и небольшой объём; при росте нужно транзакционное хранилище.
   mkdirSync(dataDirectory, { recursive: true });
@@ -148,8 +190,8 @@ function save(path, next) {
 /** @param {Form} form @param {unknown} input @returns {FormResponse['answers']} */
 function validateAnswers(form, input) {
   const body = object(input);
-  if (Object.keys(body).length !== 1 || !Object.hasOwn(body, 'answers')) {
-    throw new HttpError(400, 'Передайте только answers — объект ответов по id полей.');
+  if (Object.keys(body).some(key => !['answers', 'attemptId'].includes(key)) || !Object.hasOwn(body, 'answers')) {
+    throw new HttpError(400, 'Передайте answers — объект ответов по id полей, и при необходимости attemptId.');
   }
   const answers = object(body.answers);
   if (Object.keys(answers).some(id => !form.fields.some(field => field.id === id))) {
@@ -239,23 +281,82 @@ const server = createServer(async (request, response) => {
       result = form;
       status = 201;
     } else {
-      const publicMatch = path.match(/^\/forms\/([^/]+)(?:\/(responses))?$/);
-      const match = path.match(/^\/api\/forms\/([^/]+)(?:\/(publish|close|reopen|responses))?$/);
+      const publicMatch = path.match(/^\/forms\/([^/]+)(?:\/(responses|attempts)(?:\/([^/]+)\/(events))?)?$/);
+      const match = path.match(/^\/api\/forms\/([^/]+)(?:\/(publish|close|reopen|responses|analytics))?$/);
       if (!match && !publicMatch) throw new HttpError(404, 'Маршрут не найден.');
+      if (publicMatch?.[3] && publicMatch[2] !== 'attempts') throw new HttpError(404, 'Маршрут не найден.');
       const input = publicMatch?.[2] && request.method === 'POST' ? await readBody(request) : undefined;
       const body = match && !match[2] && request.method === 'PATCH' ? content(await readBody(request), true) : undefined;
       const form = forms.find(form => publicMatch ? form.publicUrl === `/forms/${publicMatch[1]}` : form.id === match?.[1]);
       if (!form) throw new HttpError(404, 'Форма не найдена.');
-      if (publicMatch?.[2]) {
+      if (publicMatch?.[2] === 'attempts') {
+        if (request.method !== 'POST') throw new HttpError(405, 'Метод не поддерживается.');
+        const event = object(input);
+        if (publicMatch[4]) {
+          const attempt = findAttempt(form, publicMatch[3]);
+          if (!['change', 'focus', 'activity'].includes(/** @type {string} */ (event.type)) ||
+              Object.keys(event).some(key => !['type', ...(event.type === 'activity' ? [] : ['fieldId'])].includes(key)) ||
+              (event.type !== 'activity' && !form.fields.some(field => field.id === event.fieldId))) {
+            throw new HttpError(400, 'Передайте тип события и id поля этой формы без содержимого ответа.');
+          }
+          if (responses.some(response => response.attemptId === attempt.id)) {
+            result = attempt;
+          } else {
+            const now = new Date(Date.now()).toISOString();
+            const startedAt = attempt.startedAt ?? (event.type === 'change' ? now : null);
+            const updated = { ...attempt, startedAt, lastActiveAt: now,
+              lastFieldId: startedAt && event.type !== 'activity' ? /** @type {string} */ (event.fieldId) : attempt.lastFieldId };
+            const next = attempts.map(item => item.id === attempt.id ? updated : item);
+            save(attemptsPath, next);
+            attempts = next;
+            result = updated;
+          }
+        } else {
+          if (Object.keys(event).some(key => key !== 'attemptId')) throw new HttpError(400, 'Допустим только attemptId.');
+          if (Object.hasOwn(event, 'attemptId')) {
+            result = findAttempt(form, event.attemptId);
+          } else {
+            if (form.status !== 'published') throw new HttpError(409, 'Приём откликов недоступен.');
+            const now = new Date(Date.now()).toISOString();
+            const attempt = { id: randomUUID(), formId: form.id, createdAt: now, startedAt: null, lastActiveAt: now, lastFieldId: null };
+            const next = [...attempts, attempt];
+            save(attemptsPath, next);
+            attempts = next;
+            result = attempt;
+            status = 201;
+          }
+        }
+      } else if (publicMatch?.[2] === 'responses') {
         if (request.method !== 'POST') throw new HttpError(405, 'Метод не поддерживается.');
         if (form.status !== 'published') throw new HttpError(409, 'Приём откликов недоступен.');
-        const accepted = { id: randomUUID(), formId: form.id, submittedAt: new Date().toISOString(),
-          catalogVersion, answers: validateAnswers(form, input) };
-        const next = [...responses, accepted];
-        save(responsesPath, next);
-        responses = next;
-        result = accepted;
-        status = 201;
+        const body = object(input);
+        const attempt = Object.hasOwn(body, 'attemptId') ? findAttempt(form, body.attemptId) : undefined;
+        const answers = validateAnswers(form, body);
+        const existing = attempt && responses.find(response => response.attemptId === attempt.id);
+        if (existing) {
+          result = existing;
+        } else {
+          const accepted = { id: randomUUID(), formId: form.id, submittedAt: new Date(Date.now()).toISOString(),
+            ...(attempt ? { attemptId: attempt.id } : {}), catalogVersion, answers };
+          const next = [...responses, accepted];
+          save(responsesPath, next);
+          responses = next;
+          result = accepted;
+          status = 201;
+        }
+      } else if (match?.[2] === 'analytics') {
+        if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
+        const visits = attempts.filter(attempt => attempt.formId === form.id);
+        const started = visits.filter(attempt => attempt.startedAt !== null);
+        const submitted = responses.filter(response => response.formId === form.id);
+        const completed = new Set(submitted.map(response => response.attemptId));
+        const pending = started.filter(attempt => !completed.has(attempt.id));
+        const abandoned = pending.filter(attempt => Date.now() - Date.parse(attempt.lastActiveAt) >= 30 * 60 * 1000);
+        result = { formId: form.id, views: visits.length, starts: started.length,
+          submissions: submitted.length,
+          inProgress: pending.length - abandoned.length, abandoned: abandoned.length,
+          lastActiveFields: abandoned.map(attempt => ({ attemptId: attempt.id, fieldId: attempt.lastFieldId,
+            label: form.fields.find(field => field.id === attempt.lastFieldId)?.label, lastActiveAt: attempt.lastActiveAt })) };
       } else if (match?.[2] === 'responses') {
         if (request.method !== 'GET') throw new HttpError(405, 'Метод не поддерживается.');
         const items = responses.filter(response => response.formId === form.id);
